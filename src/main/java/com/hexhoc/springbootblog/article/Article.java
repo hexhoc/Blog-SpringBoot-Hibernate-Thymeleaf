@@ -1,6 +1,7 @@
 package com.hexhoc.springbootblog.article;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.hexhoc.springbootblog.category.Category;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -172,20 +173,20 @@ public class Article {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", blogId=").append(blogId);
-        sb.append(", blogTitle=").append(blogTitle);
-        sb.append(", blogSubUrl=").append(blogSubUrl);
-        sb.append(", blogCoverImage=").append(blogCoverImage);
-        sb.append(", blogCategoryId=").append(blogCategoryId);
-        sb.append(", blogCategoryName=").append(blogCategoryName);
-        sb.append(", blogTags=").append(blogTags);
-        sb.append(", blogStatus=").append(blogStatus);
-        sb.append(", blogViews=").append(blogViews);
-        sb.append(", enableComment=").append(enableComment);
+        sb.append(", id=").append(this.id);
+        sb.append(", title=").append(this.title);
+        sb.append(", subUrl=").append(this.subUrl);
+        sb.append(", coverImage=").append(this.coverImage);
+        sb.append(", categoryId=").append(this.category.getId());
+        sb.append(", categoryName=").append(this.category.getName());
+        sb.append(", tags=").append(this.tags);
+        sb.append(", status=").append(status);
+        sb.append(", views=").append(views);
+        sb.append(", comment=").append(enableComment);
         sb.append(", isDeleted=").append(isDeleted);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
-        sb.append(", blogContent=").append(blogContent);
+        sb.append(", content=").append(content);
         sb.append("]");
         return sb.toString();
     }
