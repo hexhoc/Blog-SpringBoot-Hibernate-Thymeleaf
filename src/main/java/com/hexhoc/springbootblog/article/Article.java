@@ -2,9 +2,11 @@ package com.hexhoc.springbootblog.article;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hexhoc.springbootblog.category.Category;
+import com.hexhoc.springbootblog.tag.Tag;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 public class Article {
