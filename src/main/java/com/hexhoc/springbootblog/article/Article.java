@@ -5,58 +5,59 @@ import com.hexhoc.springbootblog.category.Category;
 import com.hexhoc.springbootblog.tag.Tag;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
+@Table(name = "articles")
 public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", columnDefinition = "BIGINT(20) COMMENT 'blog table primary key id'")
     private Long id;
 
-    @Column(name = "title")
+    @Column(name = "title", columnDefinition = "VARCHAR(255) COMMENT 'Article title'")
     private String title;
 
-    @Column(name = "content")
+    @Column(name = "content", columnDefinition = "MEDIUMTEXT NOT NULL COMMENT 'blog content'")
     private String content;
 
-    @Column(name = "subUrl")
+    @Column(name = "sub_url", columnDefinition = "VARCHAR(255) COMMENT 'Article custom path url'")
     private String subUrl;
 
-    @Column(name = "cover_image")
+    @Column(name = "cover_image", columnDefinition = "VARCHAR(200) NOT NULL COMMENT 'blog cover image'")
     private String coverImage;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id",  columnDefinition = "INT(11) NOT NULL COMMENT 'blog category id'")
     private Category category;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="articles_tags_relation",
-            joinColumns = @JoinColumn(name="article_id", referencedColumnName="id"),
-            inverseJoinColumns = @JoinColumn(name="tag_id", referencedColumnName="id")
+            joinColumns         = @JoinColumn(name="article_id", referencedColumnName="id"),
+            inverseJoinColumns  = @JoinColumn(name="tag_id", referencedColumnName="id")
     )
     private Set<Tag> tags;
 
-    @Column(name = "status")
+    @Column(name = "status", columnDefinition = "TINYINT(4) NOT NULL DEFAULT '0' COMMENT '0-draft 1-post'")
     private Byte status;
 
-    @Column(name = "views")
+    @Column(name = "views", columnDefinition = "BIGINT(20) NOT NULL DEFAULT '0' COMMENT 'How many times the article looked'")
     private Long views;
 
-    @Column(name = "enable_comment")
+    @Column(name = "enable_comment", columnDefinition = "TINYINT(4) NOT NULL DEFAULT '0' COMMENT '0-allow comment 1-not allow comment'")
     private Byte enableComment;
 
-    @Column(name = "is_deleted")
+    @Column(name = "is_deleted", columnDefinition = "TINYINT(4) NOT NULL DEFAULT '0' COMMENT 'Whether to delete 0=No 1=Yes'")
     private Byte isDeleted;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @Column(name = "create_time")
-    private LocalDate createTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+3")
+    @Column(name = "create_time", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Add time'")
+    private LocalDateTime createTime;
 
-    @Column(name = "update_time")
-    private LocalDate updateTime;
+    @Column(name = "update_time", columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'modification time'")
+    private LocalDateTime updateTime;
 
 
     ////////////////////////////
@@ -148,19 +149,19 @@ public class Article {
         this.isDeleted = isDeleted;
     }
 
-    public LocalDate getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDate createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 
-    public LocalDate getUpdateTime() {
+    public LocalDateTime getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(LocalDate updateTime) {
+    public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
 

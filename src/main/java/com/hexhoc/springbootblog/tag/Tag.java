@@ -11,17 +11,17 @@ public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", columnDefinition = "INT(11) NOT NULL COMMENT 'tag table primary key id'")
     private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "name", columnDefinition = "VARCHAR(100) NOT NULL COMMENT 'tag name'")
     private String name;
 
-    @Column(name = "is_deleted")
+    @Column(name = "is_deleted", columnDefinition = "TINYINT(4) NOT NULL DEFAULT '0' COMMENT 'Whether to delete 0=No 1=Yes'")
     private Byte isDeleted;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @Column(name = "create_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+3")
+    @Column(name = "create_time", columnDefinition = "DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'create time'")
     private Date createTime;
 
 

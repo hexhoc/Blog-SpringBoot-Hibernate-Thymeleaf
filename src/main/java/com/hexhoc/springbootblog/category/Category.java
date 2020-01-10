@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "categories")
@@ -12,23 +11,23 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", columnDefinition = "INT(11) NOT NULL COMMENT 'category table primary key'")
     private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "name", columnDefinition = "VARCHAR(50) NOT NULL COMMENT 'category name'")
     private String name;
 
-    @Column(name = "icon")
+    @Column(name = "icon", columnDefinition = "VARCHAR(50) NOT NULL COMMENT 'create time' COMMENT 'category icon'")
     private String icon;
 
-    @Column(name = "rank")
-    private Integer rank;
+    @Column(name = "grade", columnDefinition = "INT(11) NOT NULL DEFAULT '1' COMMENT 'The sort value of the category, the more used, the larger the value'")
+    private Integer grade;
 
-    @Column(name = "is_deleted")
+    @Column(name = "is_deleted", columnDefinition = "TINYINT(4) NOT NULL DEFAULT '0' COMMENT 'Whether to delete 0=No 1=Yes'")
     private Byte isDeleted;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @Column(name = "create_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+3")
+    @Column(name = "create_time", columnDefinition = "DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'create time'")
     private LocalDate createTime;
 
 
@@ -56,12 +55,12 @@ public class Category {
         this.icon = icon;
     }
 
-    public Integer getRank() {
-        return rank;
+    public Integer getGrade() {
+        return grade;
     }
 
-    public void setRank(Integer rank) {
-        this.rank = rank;
+    public void setGrade(Integer grade) {
+        this.grade = grade;
     }
 
     public Byte getIsDeleted() {
@@ -100,7 +99,7 @@ public class Category {
         sb.append(", categoryId=").append(this.id);
         sb.append(", categoryName=").append(this.name);
         sb.append(", categoryIcon=").append(this.icon);
-        sb.append(", categoryRank=").append(this.rank);
+        sb.append(", categoryRank=").append(this.grade);
         sb.append(", isDeleted=").append(this.isDeleted);
         sb.append(", createTime=").append(this.createTime);
         sb.append("]");

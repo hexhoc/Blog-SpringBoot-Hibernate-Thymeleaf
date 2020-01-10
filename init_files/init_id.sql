@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS `articles`;
 
 CREATE TABLE articles
 (
-    id             BIGINT bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'blog table primary key id',
+    id             BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT 'blog table primary key id',
     category_id    INT(11) NOT NULL COMMENT 'blog category id',
     title          VARCHAR(255) COMMENT 'Article title',
     content        MEDIUMTEXT   NOT NULL COMMENT 'blog content',
@@ -20,7 +20,7 @@ CREATE TABLE articles
     enable_comment TINYINT(4) NOT NULL DEFAULT '0' COMMENT '0-allow comment 1-not allow comment',
     is_deleted     TINYINT(4) NOT NULL DEFAULT '0' COMMENT 'Whether to delete 0=No 1=Yes',
     status         TINYINT(4) NOT NULL DEFAULT '0' COMMENT '0-draft 1-post',
-    create_time    datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP 'Add time',
+    create_time    datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Add time',
     update_time    datetime              DEFAULT CURRENT_TIMESTAMP COMMENT 'modification time',
     views          BIGINT(20) NOT NULL DEFAULT '0' COMMENT 'How many times the article looked',
     PRIMARY KEY (id)
@@ -59,12 +59,12 @@ DROP TABLE IF EXISTS `categories`;
 
 CREATE TABLE categories
 (
-    id          int(11) NOT NULL AUTO_INCREMENT COMMENT 'category table primary key',
-    name        varchar(50) NOT NULL COMMENT 'category name',
-    create_time datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'create time',
-    grade       int(11) NOT NULL DEFAULT '1' COMMENT 'The sort value of the category, the more used, the larger the value',
-    icon        varchar(50) NOT NULL COMMENT 'category icon',
-    is_deleted  tinyint(4) NOT NULL DEFAULT '0' COMMENT 'Whether to delete 0=No 1=Yes',
+    id          INT(11) NOT NULL AUTO_INCREMENT COMMENT 'category table primary key',
+    name        VARCHAR(50) NOT NULL COMMENT 'category name',
+    create_time DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'create time',
+    grade       INT(11) NOT NULL DEFAULT '1' COMMENT 'The sort value of the category, the more used, the larger the value',
+    icon        VARCHAR(50) NOT NULL COMMENT 'category icon',
+    is_deleted  TINYINT(4) NOT NULL DEFAULT '0' COMMENT 'Whether to delete 0=No 1=Yes',
     PRIMARY KEY (id)
 ) engine=innodb;
 
@@ -83,10 +83,10 @@ DROP TABLE IF EXISTS `tags`;
 
 CREATE TABLE tags
 (
-    id          int(11) NOT NULL AUTO_INCREMENT COMMENT 'tag table primary key id',
-    create_time datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'create time',
-    is_deleted  tinyint(4) NOT NULL DEFAULT '0' COMMENT 'Whether to delete 0=No 1=Yes',
-    name        varchar(100) NOT NULL COMMENT 'tag name',
+    id          INT(11) NOT NULL AUTO_INCREMENT COMMENT 'tag table primary key id',
+    create_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'create time',
+    is_deleted  TINYINT(4) NOT NULL DEFAULT '0' COMMENT 'Whether to delete 0=No 1=Yes',
+    name        VARCHAR(100) NOT NULL COMMENT 'tag name',
     PRIMARY KEY (id)
 ) engine=innodb;
 
