@@ -3,9 +3,45 @@ DATABASE `spring_blog`
 
 USE `spring_blog`;
 
--- //////////////////////////////
--- //articles
--- //////////////////////////////
+/*
+//////////////////////////////
+//config
+//////////////////////////////
+ */
+
+DROP TABLE IF EXISTS `config`;
+
+CREATE TABLE `config`
+(
+    `config_name`  VARCHAR(100) NOT NULL DEFAULT '' COMMENT 'Name of the configuration item',
+    `config_value` VARCHAR(200) NOT NULL DEFAULT '' COMMENT 'Configuration item value',
+    `create_time`  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time',
+    `update_time`  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'modification time',
+    PRIMARY KEY (`config_name`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+/*Data for the table `config` */
+
+insert  into `config`(`config_name`,`config_value`,`create_time`,`update_time`) values ('footerAbout','your personal blog. have fun.','2020-01-10 20:33:23','2020-01-12 11:58:06');
+insert  into `config`(`config_name`,`config_value`,`create_time`,`update_time`) values ('footerCopyRight','2019','2020-01-10 20:33:31','2020-01-12 11:58:06');
+insert  into `config`(`config_name`,`config_value`,`create_time`,`update_time`) values ('footerPoweredBy','https://github.com/hexhoc','2020-01-10 20:33:36','2020-01-12 11:58:06');
+insert  into `config`(`config_name`,`config_value`,`create_time`,`update_time`) values ('footerPoweredByURL','https://github.com/hexhoc','2020-01-10 20:33:39','2020-01-12 11:58:06');
+insert  into `config`(`config_name`,`config_value`,`create_time`,`update_time`) values ('websiteDescription','personal blog SpringBoot2+Thymeleaf+Hibernate.','2020-01-10 20:33:04','2020-01-10 22:05:14');
+insert  into `config`(`config_name`,`config_value`,`create_time`,`update_time`) values ('websiteIcon','/admin/dist/img/favicon.png','2020-01-10 20:33:11','2020-01-10 22:05:14');
+insert  into `config`(`config_name`,`config_value`,`create_time`,`update_time`) values ('websiteLogo','/admin/dist/img/logo2.png','2020-01-10 20:33:08','2020-01-10 22:05:14');
+insert  into `config`(`config_name`,`config_value`,`create_time`,`update_time`) values ('websiteName','personal blog','2020-01-10 20:33:01','2020-01-10 22:05:14');
+insert  into `config`(`config_name`,`config_value`,`create_time`,`update_time`) values ('yourAvatar','/admin/dist/img/hexhoc.png','2020-01-10 20:33:14','2020-01-07 21:56:23');
+insert  into `config`(`config_name`,`config_value`,`create_time`,`update_time`) values ('yourEmail','hexhoc@gmail.com','2020-01-10 20:33:17','2020-01-07 21:56:23');
+insert  into `config`(`config_name`,`config_value`,`create_time`,`update_time`) values ('yourName','hexhoc','2020-01-10 20:33:20','2020-01-07 21:56:23');
+
+
+
+/*
+//////////////////////////////
+//articles
+//////////////////////////////
+ */
 
 DROP TABLE IF EXISTS `articles`;
 
