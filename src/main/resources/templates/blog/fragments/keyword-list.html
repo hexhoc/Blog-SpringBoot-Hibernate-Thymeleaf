@@ -29,12 +29,12 @@
                                 <span class="pull-right time pc_time"
                                       th:text="${#dates.format(article.createTime, 'yyyy-MM-dd')}">2020-01</span>
                             </div>
-                            <h1 class="post-index-title"><a itemtype="url" th:href="@{'/blog/' + ${article.id}}">
+                            <h1 class="post-index-title"><a itemtype="url" th:href="@{'/article/' + ${article.id}}">
                                 <th:block th:text="${article.title}"></th:block>
                             </a>
                             </h1>
                             <div class="post-content-preview article-body">
-                                <a th:href="@{'/blog/' + ${article.id}}">
+                                <a th:href="@{'/article/' + ${article.id}}">
                                     <img th:src="@{${article.coverImage}}" alt=""></a>
                             </div>
                             <div class="clearfix topic-footer">

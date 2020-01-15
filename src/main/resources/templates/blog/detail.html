@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html>
+<head>
+    <title th:text="${configurations.get('websiteName')}+' | '+${pageName}">Details page</title>
+    <meta name="description" th:content="${configurations.get('websiteDescription')}">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" th:href="@{${configurations.get('websiteIcon')}}"/>
+    <link rel="stylesheet" th:href="@{/blog/css/base.css}">
+    <!-- highlight -->
+    <link rel="stylesheet" th:href="@{/blog/plugins/highlight/styles/paraiso-light.css}">
+    <style>
+        .hljs {
+            background: none;
+        }
+
+        pre code {
+            white-space: pre;
+        }
+
+        blockquote {
+            border-left: 4px solid #42b983;
+            padding: 10px 0px 10px 15px;
+            color: #777;
+            background-color: rgba(66, 185, 131, .1);
+            max-width: 890px;
+        }
+    </style>
+
+</head>
+<body>
+<div th:replace="blog/fragments/header::nav-fragment"></div>
+<header th:fragment="header-fragment" class="intro-header"
+        th:style="'background-image:url(' + @{/blog/images/header.jpg} + ');'">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1 th:text="${articleDetailDTO.title}"></h1>
+                    <span class="meta">
+<!--                        TODO Fix the data-->
+<!--                        <th:block th:text="${#dates.format(articleDetailDTO.createTime, 'yyyy-MM-dd')}"></th:block> &nbsp;-->
+                            <div class="comments-view" style="display: inline-block">
+                                <a href="#comments" class="article-comments"><th:block
+                                        th:text="${articleDetailDTO.commentCount}"></th:block> comments</a> &nbsp;
+                                <th:block th:text="${articleDetailDTO.views}"></th:block> browse
+                            </div>
+                            </span>
+                    <div class="tags post-tags">
+                        <th:block th:each="tag : ${articleDetailDTO.tags}">
+                            <a class="tag" rel="tag" th:href="@{'/tag/' + ${tag}}">
+                                <th:block th:text="${tag}"></th:block>
+                            </a>&nbsp;
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+</header>
+<div class="container">
+    <div class="am-g am-g-fixed blog-fixed">
+        <div class="am-u-lg-12 am-u-sm-12">
+            <article class="am-article blog-article-p article-trigger">
+                <div id="post-content" class="am-article-bd article-body">
+                    <th:block th:utext="${articleDetailDTO.content}"/>
+                    <aside class="blog-rights clearfix">
+                        <p>Articles on this site are original by the author unless the reprint/source is indicated.
+                            Reprinting is welcome. However, without the consent of the author, you must keep this
+                            statement and provide a link to the original text in an obvious place on the article page,
+                            otherwise the right to pursue legal responsibility is reserved.</p>
+                    </aside>
+                </div>
+            </article>
+            <hr>
+        </div>
+    </div>
+
+<!--    TODO Fill comments block-->
+<!--    <aside class="comments" id="comments">-->
+<!--        <th:block th:if="${null != commentPageResult}">-->
+<!--            <th:block th:each="comment,iterStat : ${commentPageResult.list}">-->
+<!--                <article class="comment">-->
+<!--                    <header class="clearfix">-->
+<!--                        <img th:src="@{/blog/default/img/avatar.png}" class="avatar">-->
+<!--                        <div class="meta">-->
+<!--                            <h3 th:text="${comment.commentator}"></h3>-->
+<!--                            <span class="date">-->
+<!--                                       Comment time:<th:block-->
+<!--                                    th:text="${#dates.format(comment.commentCreateTime, 'yyyy-MM-dd HH:mm:ss')}"></th:block>-->
+<!--                                    </span>-->
+<!--                        </div>-->
+<!--                    </header>-->
+<!--                    <div class="body">-->
+<!--                        <th:block th:text="${comment.commentBody}"></th:block>-->
+<!--                    </div>-->
+<!--                </article>-->
+<!--                <th:block th:unless="${#strings.isEmpty(comment.replyBody)}">-->
+<!--                    <article class="comment reply">-->
+<!--                        <header class="clearfix">-->
+<!--                            <img th:src="@{${configurations.get('yourAvatar')}}"-->
+<!--                                 style="float: left;border-radius: 100px;width: 50px;">-->
+<!--                            <div class="meta2">-->
+<!--                                <h3 th:text="${configurations.get('yourName')}">十三</h3>-->
+<!--                                <span class="date">-->
+<!--                                        Response Time: <th:block-->
+<!--                                        th:text="${#dates.format(comment.replyCreateTime, 'yyyy-MM-dd HH:mm:ss')}"></th:block>-->
+<!--                                    </span>-->
+
+<!--                            </div>-->
+<!--                        </header>-->
+<!--                        <div class="reply-body">-->
+<!--                            <th:block th:text="${comment.replyBody}"></th:block>-->
+<!--                        </div>-->
+<!--                    </article>-->
+<!--                </th:block>-->
+<!--            </th:block>-->
+<!--        </th:block>-->
+<!--        <th:block th:if="${null != commentPageResult}">-->
+<!--            <ul class="am-pagination">-->
+<!--                <li th:class="${commentPageResult.currPage==1}?'disabled' : ''"><a-->
+<!--                        th:href="@{${commentPageResult.currPage==1}?'##':'/blog/'+${articleDetailDTO.id}+'?commentPage=' + ${commentPageResult.currPage-1}+'#comments'}">&laquo;</a>-->
+<!--                </li>-->
+<!--                <li th:if="${commentPageResult.currPage-3 >=1}"><a-->
+<!--                        th:href="@{'/blog/'+${articleDetailDTO.id}+'?commentPage=' + ${commentPageResult.currPage-3}+'#comments'}"-->
+<!--                        th:text="${commentPageResult.currPage -3}">1</a></li>-->
+<!--                <li th:if="${commentPageResult.currPage-2 >=1}"><a-->
+<!--                        th:href="@{'/blog/'+${articleDetailDTO.id}+'?commentPage=' + ${commentPageResult.currPage-2}+'#comments'}"-->
+<!--                        th:text="${commentPageResult.currPage -2}">1</a></li>-->
+<!--                <li th:if="${commentPageResult.currPage-1 >=1}"><a-->
+<!--                        th:href="@{'/blog/'+${articleDetailDTO.id}+'?commentPage=' + ${commentPageResult.currPage-1}+'#comments'}"-->
+<!--                        th:text="${commentPageResult.currPage -1}">1</a></li>-->
+<!--                <li class="active"><a href="#" th:text="${commentPageResult.currPage}">1</a></li>-->
+<!--                <li th:if="${commentPageResult.currPage+1 <=commentPageResult.totalPage}"><a-->
+<!--                        th:href="@{'/blog/'+${articleDetailDTO.id}+'?commentPage=' + ${commentPageResult.currPage+1}+'#comments'}"-->
+<!--                        th:text="${commentPageResult.currPage +1}">1</a></li>-->
+<!--                <li th:if="${commentPageResult.currPage+2 <=commentPageResult.totalPage}"><a-->
+<!--                        th:href="@{'/blog/'+${articleDetailDTO.id}+'?commentPage=' + ${commentPageResult.currPage+2}+'#comments'}"-->
+<!--                        th:text="${commentPageResult.currPage +2}">1</a></li>-->
+<!--                <li th:if="${commentPageResult.currPage+3 <=commentPageResult.totalPage}"><a-->
+<!--                        th:href="@{'/blog/'+${articleDetailDTO.id}+'?commentPage=' + ${commentPageResult.currPage+3}+'#comments'}"-->
+<!--                        th:text="${commentPageResult.currPage +3}">1</a></li>-->
+<!--                <li th:class="${commentPageResult.currPage==commentPageResult.totalPage}?'disabled' : ''"><a-->
+<!--                        th:href="@{${commentPageResult.currPage==commentPageResult.totalPage}?'##' : '/blog/'+${articleDetailDTO.id}+'?commentPage=' + ${commentPageResult.currPage+1}+'#comments'}">&raquo;</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </th:block>-->
+<!--    </aside>-->
+    <th:block th:if="${articleDetailDTO.enableComment==0}">
+        <aside class="create-comment" id="create-comment">
+            <hr>
+            <h2><i class="fa fa-pencil"></i> add comment</h2>
+            <table id="commentForm" class="form">
+                <tbody>
+                <tr>
+                    <td>
+                        <input type="hidden" id="blogId" name="blogId" th:value="${articleDetailDTO.id}"></input>
+                        <input type="text" name="commentator" id="commentator"
+                               placeholder="(*Required) How do you call you?">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="email" name="email" id="email" placeholder="(*Required) Your contact email">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" name="websiteUrl" id="websiteUrl"
+                               placeholder="Your website address (optional)">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input style="width:50%" type="text" name="verifyCode" id="verifyCode"
+                               placeholder="(*Required)Please enter the verification code">&nbsp;&nbsp;
+                        <img alt="Click the picture to refresh!" class="pointer"
+                             style="margin-top: 15px; border-radius: 25px;"
+                             th:src="@{/common/kaptcha}"
+                             onclick="this.src='/common/kaptcha?d='+new Date()*1">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea rows="5" name="commentBody" id="commentBody"
+                                  placeholder="(*Required)Please enter your comment"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <button id="commentSubmit" type="submit"
+                                class="submit am-btn am-btn-primary">Submit
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </aside>
+    </th:block>
+    <p class="back-top" id="back-top" style="display:none"><a href="#top"><span></span></a></p>
+</div>
+<footer th:replace="blog/fragments/footer::footer-fragment"></footer>
+</body>
+<script th:src="@{/blog/js/jquery.min.js}"></script>
+<script th:src="@{/blog/plugins/highlight/highlight.pack.js}"></script>
+<script th:src="@{/blog/plugins/comment/valid.js}"></script>
+<script th:src="@{/blog/plugins/comment/comment.js}"></script>
+<!-- sweetalert -->
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script>
+    $(function () {
+        $("#back-top").hide();
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 300) {
+                $('#back-top').fadeIn();
+            } else {
+                $('#back-top').fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        $('#back-top a').click(function () {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+
+        $('article h1, article h2, article h3, article h4, article h5').find('a').removeAttr('target')
+    })
+</script>
+</html>

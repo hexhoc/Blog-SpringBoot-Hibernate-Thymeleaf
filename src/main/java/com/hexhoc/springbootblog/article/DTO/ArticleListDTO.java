@@ -1,4 +1,4 @@
-package com.hexhoc.springbootblog.article;
+package com.hexhoc.springbootblog.article.DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

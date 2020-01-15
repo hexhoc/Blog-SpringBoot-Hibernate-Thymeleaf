@@ -1,18 +1,18 @@
 package com.hexhoc.springbootblog.article;
 
+import com.hexhoc.springbootblog.article.DTO.ArticleDetailDTO;
+import com.hexhoc.springbootblog.article.DTO.ArticleListDTO;
 import com.hexhoc.springbootblog.category.Category;
 import com.hexhoc.springbootblog.category.CategoryRepository;
 import com.hexhoc.springbootblog.common.util.PageResult;
+import com.hexhoc.springbootblog.tag.Tag;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ArticleServiceImpl implements ArticleService{
@@ -59,6 +59,20 @@ public class ArticleServiceImpl implements ArticleService{
         return new PageResult(articlesListDTO, total, limit, page);
     }
 
+    public ArticleDetailDTO getArticleDetailDTOById(Long id) {
+
+        Optional<Article> articleOptional = articleRepository.findById(id);
+        ArticleDetailDTO articleDetailDTO = new ArticleDetailDTO();
+
+        if(articleOptional.isPresent()) {
+            articleDetailDTO = convertToArticleDetailDTO(articleOptional.get());
+        }
+
+        return articleDetailDTO;
+    }
+
+
+
     @Override
     public List<ArticleListDTO> convertToArticleListDTO(List<Article> articlesList) {
 
@@ -77,6 +91,35 @@ public class ArticleServiceImpl implements ArticleService{
         }
 
         return articlesListDTO;
+    }
+
+    public ArticleDetailDTO convertToArticleDetailDTO(Article article) {
+
+        ArticleDetailDTO articleDetailDTO = new ArticleDetailDTO();
+        articleDetailDTO.setId(article.getId());
+        articleDetailDTO.setTitle(article.getTitle());
+        articleDetailDTO.setCategoryId(article.getCategory().getId());
+        articleDetailDTO.setCategoryIcon(article.getCategory().getIcon());
+        articleDetailDTO.setCategoryName(article.getCategory().getName());
+        //TODO calculate and fill this property
+        articleDetailDTO.setCommentCount(0);
+        articleDetailDTO.setCoverImage(article.getCoverImage());
+        articleDetailDTO.setViews(article.getViews());
+
+        Set<Tag> tags = article.getTags();
+        List<String> tagsString = new ArrayList<>();
+
+        for(Tag tag : tags){
+            tagsString.add(tag.getName());
+        }
+
+        articleDetailDTO.setTags(tagsString);
+        articleDetailDTO.setContent(article.getContent());
+        articleDetailDTO.setEnableComment(article.getEnableComment());
+        articleDetailDTO.setCreateTime(article.getCreateTime());
+
+        return articleDetailDTO;
+
     }
 
 }

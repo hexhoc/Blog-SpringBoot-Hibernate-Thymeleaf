@@ -1,8 +1,11 @@
 package com.hexhoc.springbootblog.article;
 
+import com.hexhoc.springbootblog.article.DTO.ArticleDetailDTO;
+import com.hexhoc.springbootblog.article.DTO.ArticleListDTO;
 import com.hexhoc.springbootblog.common.util.PageResult;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ArticleService {
 
@@ -16,7 +19,10 @@ public interface ArticleService {
 
     PageResult getBlogsPageByCategory(String categoryName, Integer page);
 
-    public List<ArticleListDTO> convertToArticleListDTO(List<Article> articlesList);
+    List<ArticleListDTO> convertToArticleListDTO(List<Article> articlesList);
 
+    ArticleDetailDTO getArticleDetailDTOById(Long id);
+
+    ArticleDetailDTO convertToArticleDetailDTO(Article article);
 
 }

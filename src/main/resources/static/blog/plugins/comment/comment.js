@@ -48,7 +48,7 @@ $('#commentSubmit').click(function () {
     console.log(data);
     $.ajax({
         type:'POST',//Method type
-        url:'/blog/comment',
+        url:'/article/comment',
         data: data,
         success: function (result) {
             if (result.resultCode == 200) {
