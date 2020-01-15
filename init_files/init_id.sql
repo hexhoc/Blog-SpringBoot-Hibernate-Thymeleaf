@@ -76,20 +76,6 @@ INSERT INTO `articles` (`id`, `title`, `sub_url`, `cover_image`, `content`, `cat
 INSERT INTO `articles` (`id`, `title`, `sub_url`, `cover_image`, `content`, `category_id`, `status`, `views`, `enable_comment`, `is_deleted`, `create_time`, `update_time`) VALUES (11, 'Spring+SpringMVC+Hibernate(easyUI、AdminLte3)', '', '/admin/dist/img/rand/36.jpg', '## Practical chapter (paid tutorial)\n\n- [SSM builds a beautiful and practical management system]', 22, 1, 55, 0, 0, '2019-04-24 15:46:15', '2019-04-24 15:46:15');
 INSERT INTO `articles` (`id`, `title`, `sub_url`, `cover_image`, `content`, `category_id`, `status`, `views`, `enable_comment`, `is_deleted`, `create_time`, `update_time`) VALUES (12, 'SpringBoot. Series of tutorials', '', '/admin/dist/img/rand/29.jpg', '<h2 id=\"springboot2\">23 experiments to take you easy to play with Spring Boot</h2>\n\n- [**Introduction: "23 experiments to take you to play with Spring Boot easily"** ]', 24, 1, 10, 0, 0, '2019-05-13 09:58:54', '2019-05-13 09:58:54');
 
-/*
-//////////////////////////////
-//articles_tags_relation
-//////////////////////////////
- */
-
-DROP TABLE IF EXISTS `articles_tags_relation`;
-
-CREATE TABLE articles_tags_relation
-(
-    article_id BIGINT  NOT NULL,
-    tag_id     INTEGER NOT NULL,
-    PRIMARY KEY (article_id, tag_id)
-) engine=innodb;
 
 
 /*
@@ -147,6 +133,37 @@ INSERT INTO `tags`(`id`, `name`, `is_deleted`, `create_time`) VALUES (130,'Sprin
 INSERT INTO `tags`(`id`, `name`, `is_deleted`, `create_time`) VALUES (131,'Getting_started',0,'2019-05-13 09:58:54');
 INSERT INTO `tags`(`id`, `name`, `is_deleted`, `create_time`) VALUES (132,'Practical_tutorial',0,'2019-05-13 09:58:54');
 INSERT INTO `tags`(`id`, `name`, `is_deleted`, `create_time`) VALUES (133,'spring-boot-Enterprise-level-development',0,'2019-05-13 09:58:54');
+
+
+/*
+//////////////////////////////
+//articles_tags_relation
+//////////////////////////////
+ */
+
+DROP TABLE IF EXISTS `articles_tags_relation`;
+
+CREATE TABLE articles_tags_relation
+(
+    article_id BIGINT  NOT NULL,
+    tag_id     INTEGER NOT NULL,
+    PRIMARY KEY (article_id, tag_id)
+) engine=innodb;
+
+/*Data for the table `articles_tags_relation` */
+
+insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (1,57);
+insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (1,58);
+insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (2,127);
+insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (4,130);
+insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (4,131);
+insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (4,132);
+insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (4,133);
+insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (3,66);
+insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (3,67);
+insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (3,68);
+insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (3,69);
+insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (3,128);
 
 /*
 //////////////////////////////
