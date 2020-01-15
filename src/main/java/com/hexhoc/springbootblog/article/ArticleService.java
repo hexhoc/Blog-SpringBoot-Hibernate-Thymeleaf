@@ -14,5 +14,9 @@ public interface ArticleService {
      */
     PageResult getArticlesForIndexPage(int page);
 
+    PageResult getBlogsPageByCategory(String categoryName, Integer page);
+
     public List<ArticleListDTO> convertToArticleListDTO(List<Article> articlesList);
+
+
 }

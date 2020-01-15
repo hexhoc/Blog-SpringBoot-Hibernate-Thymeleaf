@@ -1,6 +1,7 @@
 package com.hexhoc.springbootblog.article;
 
 import com.hexhoc.springbootblog.category.Category;
+import com.hexhoc.springbootblog.category.CategoryRepository;
 import com.hexhoc.springbootblog.common.util.PageResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +12,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ArticleServiceImpl implements ArticleService{
 
     ArticleRepository articleRepository;
+    CategoryRepository categoryRepository;
 
     @Autowired
-    public ArticleServiceImpl(ArticleRepository articleRepository){
+    public ArticleServiceImpl(ArticleRepository articleRepository, CategoryRepository categoryRepository){
         this.articleRepository = articleRepository;
+        this.categoryRepository = categoryRepository;
     }
 
 
@@ -34,7 +38,24 @@ public class ArticleServiceImpl implements ArticleService{
         List<ArticleListDTO> articlesListDTO = convertToArticleListDTO(articlesList);
         int total = (int) articleRepository.count();
 
-        //TODO Make to return articlesListDTO
+        return new PageResult(articlesListDTO, total, limit, page);
+    }
+
+    @Override
+    public PageResult getBlogsPageByCategory(String categoryName, Integer page) {
+
+        int limit = 8;
+        int total = 0;
+        Boolean blogStatus = true; //Filter the data in the published state
+        Optional<Category> categoryOptional = categoryRepository.findByName(categoryName);
+        List<ArticleListDTO> articlesListDTO = new ArrayList<>();
+
+        if(!categoryOptional.isEmpty()) {
+            Category category = categoryOptional.get();
+            List<Article> articlesList = articleRepository.findByStatusAndCategory(blogStatus, category, PageRequest.of(page - 1, 8, Sort.by(Sort.Direction.ASC, "createTime")));
+            articlesListDTO = convertToArticleListDTO(articlesList);
+            total = (int) articleRepository.count();
+        }
         return new PageResult(articlesListDTO, total, limit, page);
     }
 
