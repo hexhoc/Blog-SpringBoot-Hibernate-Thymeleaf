@@ -28,12 +28,12 @@ public class CategoryController {
      */
     @GetMapping({"/categories"})
     public String categories(Model model) {
-//        model.addAttribute("hotTags", tagService.getBlogTagCountForIndex());
+//        model.addAttribute("hotTags", tagService.getTagsWithArticlesCount());
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("pageName", "Category page");
         model.addAttribute("configurations", configService.getAllConfigs());
 
-        return "blog/category";
+        return "blog/categories";
     }
 
 }

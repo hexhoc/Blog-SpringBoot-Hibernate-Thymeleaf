@@ -33,6 +33,9 @@ public class Tag {
     )
     Set<Article> articles;
 
+//    @Transient
+//    private Integer tagCount;
+
     ////////////////////////////
     //GETTER AND SETTER
     ////////////////////////////
