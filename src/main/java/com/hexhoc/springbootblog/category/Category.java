@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "categories")
@@ -23,12 +24,12 @@ public class Category {
     @Column(name = "grade", columnDefinition = "INT(11) NOT NULL DEFAULT '1' COMMENT 'The sort value of the category, the more used, the larger the value'")
     private Integer grade;
 
-    @Column(name = "is_deleted", columnDefinition = "TINYINT(4) NOT NULL DEFAULT '0' COMMENT 'Whether to delete 0=No 1=Yes'")
-    private Byte isDeleted;
+    @Column(name = "is_deleted", columnDefinition = "BOOLEAN NOT NULL DEFAULT '0' COMMENT 'Whether to delete 0=No 1=Yes'")
+    private Boolean isDeleted;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+3")
     @Column(name = "create_time", columnDefinition = "DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'create time'")
-    private LocalDate createTime;
+    private LocalDateTime createTime;
 
 
     ////////////////////////////
@@ -63,19 +64,19 @@ public class Category {
         this.grade = grade;
     }
 
-    public Byte getIsDeleted() {
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Byte isDeleted) {
+    public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 
-    public LocalDate getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDate createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 

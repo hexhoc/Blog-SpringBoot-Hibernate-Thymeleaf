@@ -40,17 +40,17 @@ public class Article {
     )
     private Set<Tag> tags;
 
-    @Column(name = "status", columnDefinition = "TINYINT(4) NOT NULL DEFAULT '0' COMMENT '0-draft 1-post'")
-    private Byte status;
+    @Column(name = "status", columnDefinition = "BOOLEAN NOT NULL DEFAULT '0' COMMENT '0-draft 1-post'")
+    private Boolean status;
 
     @Column(name = "views", columnDefinition = "BIGINT(20) NOT NULL DEFAULT '0' COMMENT 'How many times the article looked'")
     private Long views;
 
-    @Column(name = "enable_comment", columnDefinition = "TINYINT(4) NOT NULL DEFAULT '0' COMMENT '0-allow comment 1-not allow comment'")
-    private Byte enableComment;
+    @Column(name = "enable_comment", columnDefinition = "BOOLEAN NOT NULL DEFAULT '0' COMMENT '0-allow comment 1-not allow comment'")
+    private Boolean enableComment;
 
-    @Column(name = "is_deleted", columnDefinition = "TINYINT(4) NOT NULL DEFAULT '0' COMMENT 'Whether to delete 0=No 1=Yes'")
-    private Byte isDeleted;
+    @Column(name = "is_deleted", columnDefinition = "BOOLEAN NOT NULL DEFAULT '0' COMMENT 'Whether to delete 0=No 1=Yes'")
+    private Boolean isDeleted;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+3")
     @Column(name = "create_time", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Add time'")
@@ -117,11 +117,11 @@ public class Article {
         this.tags = tags;
     }
 
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
@@ -133,19 +133,19 @@ public class Article {
         this.views = views;
     }
 
-    public Byte getEnableComment() {
+    public Boolean getEnableComment() {
         return enableComment;
     }
 
-    public void setEnableComment(Byte enableComment) {
+    public void setEnableComment(Boolean enableComment) {
         this.enableComment = enableComment;
     }
 
-    public Byte getIsDeleted() {
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Byte isDeleted) {
+    public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 

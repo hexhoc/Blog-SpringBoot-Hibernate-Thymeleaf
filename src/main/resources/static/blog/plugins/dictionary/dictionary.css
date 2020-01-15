@@ -1,0 +1,56 @@
+/*Generate CSS for blog directory*/
+#uprightsideBar {
+    font-size: 18px;
+    font-family:'Monaco', Microsoft Yahei, Times New Roman, sans-serif;
+    text-align: left;
+    position: fixed; /*Fix the position of the div to the top:50px, left:0px position, so that the div will be at the leftmost position, 50px from the top*/
+    top: 15%;
+    right: 0px;
+    width: auto;
+    height: auto;
+}
+
+#sideBarTab {
+    float: right;
+    width: 50px;
+    border: 1px solid #e5e5e5;
+    border-right: none;
+    text-align: center;
+    background: #ffffff;
+}
+
+#sideBarContents {
+    font-size: 14px;
+    float: left;
+    overflow: auto;
+    overflow-x: hidden;
+!important;
+    width: 200px;
+    min-height: 108px;
+    max-height: 460px;
+    border: 1px solid #e5e5e5;
+    border-right: none;
+    background: #ffffff;
+}
+
+#sideBarContents dl {
+    margin: 0;
+    padding: 0;
+}
+
+#sideBarContents dt {
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+#sideBarContents dd, dt {
+    cursor: pointer;
+}
+
+#sideBarContents dd:hover, dt:hover {
+    color: #428bca;
+}
+
+#sideBarContents dd {
+    margin-left: 20px;
+}

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class ConfigServiceImpl implements ConfigService {
 
-    private ConfigRepository configRepository;
+    private final ConfigRepository configRepository;
 
     //DEFAULT CONFIG VALUES
     public static final String websiteName = "personal blog";
@@ -40,7 +41,7 @@ public class ConfigServiceImpl implements ConfigService {
         if (!blogConfig.isEmpty()) {
             Config config = blogConfig.get();
             config.setConfigValue(configValue);
-            config.setUpdateTime(new Date());
+            config.setUpdateTime(LocalDateTime.now());
             configRepository.save(config);
             return 1;
         }
