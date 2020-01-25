@@ -165,6 +165,29 @@ insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (3,68);
 insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (3,69);
 insert  into `articles_tags_relation`(`article_id`,`tag_id`) values (3,128);
 
+/*Table structure for table `comment` */
+
+DROP TABLE IF EXISTS `comment`;
+
+CREATE TABLE `comment`
+(
+    `id`                BIGINT(20)   NOT NULL AUTO_INCREMENT COMMENT 'primary key id',
+    `article_id`        BIGINT(20)   NOT NULL DEFAULT '0' COMMENT 'Associated blog primary key',
+    `commentator`       VARCHAR(50)  NOT NULL DEFAULT '' COMMENT 'Commentator name',
+    `email`             VARCHAR(100) NOT NULL DEFAULT '' COMMENT 'commenters mailbox',
+    `website_url`       VARCHAR(50)  NOT NULL DEFAULT '' COMMENT 'URL',
+    `body`              VARCHAR(200) NOT NULL DEFAULT '' COMMENT 'Comment content',
+    `create_time`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Comment submission time',
+    `commentator_ip`    VARCHAR(20)  NOT NULL DEFAULT '' COMMENT 'IP address when commenting',
+    `reply_body`        VARCHAR(200) NOT NULL DEFAULT '' COMMENT 'reply content',
+    `reply_create_time` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'reply time',
+    `status`            TINYINT(1)   NOT NULL DEFAULT '0' COMMENT 'Whether the audit passed 0-unaudited 1-approved',
+    `is_deleted`        TINYINT(1)            DEFAULT '0' COMMENT 'Whether to delete 0-not deleted 1-deleted',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+
 /*
 //////////////////////////////
 //FOREIGN KEYS
