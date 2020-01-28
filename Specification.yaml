@@ -1,36 +1,45 @@
 SPECIFICATION.
+Need to do
 
-Entity:
-    Article @Table(name = "articles"):
-        Descriptions:
-            Describes the essence of a specific article
-        Properties:
-            id (column name = id)
-            title (column name = title)
-            subUrl (column name = sub_url)
-            coverImage (column name = cover_image)
-            category (ManyToOne, join column name = category_id)
-                ref to categoty entity
-            tags (ManyToMany join column name = tags_id)
-                ref ti tags entity
-            status (column name = status)
-            views (column name = views)
-            enableComment (column name = enable_comment)
-            isDeleted (column name = is_deleted)
-            createTime (column name = create_time)
-            updateTime (column name = update_time)
-            content  (column name = content)
+features:
+    Controller:
+        TagController:
+            - get article by tags
+            - tags list
+            - tags save
+            - tags delete
+    Search:
+        searchController:
+            - search by keyword
+    Article:
+        ArticleController:
+            - edit article
+            - save article
+            - delete article
+            - upload some files
+    User:
+        UserController:
+            - login
+            - logout
+            - profile
+        UserEntity:
+            - Username
+            - Password
+            - locked
+    ArticlesTagsRelation:
+        ArticleTagsRelationEntity:
+            - Article
+            - Tag
+    Comment:
+        CommentController:
+            - Comment list
+            - reply
+            - delete
 
-    Category @Table(name = "categories"):
-        Descriptions:
-            Aggregated analytics for articles
-        Properties:
-            id (column name = id)
-            name (column name = name)
-            icon (column name = icon)
-            rank (column name = rank)
-            isDeleted (column name = is_deleted)
-            createTime (column name = create_time)
+
+
+
+
 
 
 
