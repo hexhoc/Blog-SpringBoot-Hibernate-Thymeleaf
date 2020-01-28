@@ -1,7 +1,6 @@
 package com.hexhoc.springbootblog.article.DTO;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public class ArticleDetailDTO {
