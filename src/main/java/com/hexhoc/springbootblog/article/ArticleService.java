@@ -24,4 +24,6 @@ public interface ArticleService {
 
     ArticleDetailDTO convertToArticleDetailDTO(Article article);
 
+    Long getTotalArticle();
+
 }

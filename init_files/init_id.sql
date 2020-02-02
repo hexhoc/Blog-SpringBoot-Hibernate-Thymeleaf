@@ -188,6 +188,22 @@ CREATE TABLE `comment`
   DEFAULT CHARSET = utf8;
 
 
+/*Table structure for table `users` */
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users`
+(
+    `id`        BIGINT(20)         NOT NULL AUTO_INCREMENT COMMENT 'user table primary key id',
+    `username`  VARCHAR(25) UNIQUE NOT NULL COMMENT 'Name that uses for login',
+    `password`  VARCHAR(25)        NOT NULL COMMENT 'Password that uses for login',
+    `nickname`  VARCHAR(25)        NOT NULL COMMENT 'Name that uses for display',
+    `is_locked` TINYINT(1)         NOT NULL DEFAULT '0' COMMENT 'Prevents the user from logging in',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+
 /*
 //////////////////////////////
 //FOREIGN KEYS

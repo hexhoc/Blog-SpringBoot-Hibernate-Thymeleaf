@@ -122,4 +122,9 @@ public class ArticleServiceImpl implements ArticleService{
 
     }
 
+    @Override
+    public Long getTotalArticle() {
+        return articleRepository.count();
+    }
+
 }

@@ -1,6 +1,6 @@
 SPECIFICATION.
 Need to do
-
+NEED USER
 features:
     Controller:
         TagController:
@@ -22,6 +22,7 @@ features:
             - login
             - logout
             - profile
+            - pre-handle redirect to login page if user is not login
         UserEntity:
             - Username
             - Password

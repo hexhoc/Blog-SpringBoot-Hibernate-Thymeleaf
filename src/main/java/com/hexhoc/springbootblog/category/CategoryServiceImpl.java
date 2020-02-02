@@ -2,8 +2,6 @@ package com.hexhoc.springbootblog.category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,5 +14,8 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryRepository.findAll();
     };
 
+    public Long getTotalCategories(){
+        return categoryRepository.count();
+    }
 
 }

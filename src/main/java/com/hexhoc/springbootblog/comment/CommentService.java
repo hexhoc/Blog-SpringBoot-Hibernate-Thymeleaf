@@ -10,5 +10,6 @@ public interface CommentService {
      */
     void addComment(Comment articleComment);
 
+    Long getTotalComments();
 
 }

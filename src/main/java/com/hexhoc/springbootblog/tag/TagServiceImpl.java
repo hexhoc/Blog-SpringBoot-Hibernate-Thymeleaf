@@ -15,4 +15,9 @@ public class TagServiceImpl implements TagService{
         return tagRepository.getTagsWithArticlesCount();
     }
 
+    @Override
+    public Long getTotalTags() {
+        return tagRepository.count();
+    }
+
 }

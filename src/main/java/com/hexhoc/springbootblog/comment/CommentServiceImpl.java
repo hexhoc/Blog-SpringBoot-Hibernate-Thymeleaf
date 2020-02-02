@@ -17,4 +17,9 @@ public class CommentServiceImpl implements CommentService{
     public void addComment(Comment articleComment) {
         commentRepository.save(articleComment);
     }
+
+    @Override
+    public Long getTotalComments() {
+        return commentRepository.count();
+    }
 }
