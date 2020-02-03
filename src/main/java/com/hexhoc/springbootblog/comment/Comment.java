@@ -19,7 +19,7 @@ public class Comment {
     @Column(name = "commentator", columnDefinition = "VARCHAR(50) NOT NULL DEFAULT '' COMMENT 'Commentator name'")
     private String commentator;
 
-    @Column(name = "email", columnDefinition = "VARCHAR(100) NOT NULL DEFAULT '' COMMENT 'commenter's mailbox'")
+    @Column(name = "email", columnDefinition = "VARCHAR(100) NOT NULL DEFAULT '' COMMENT 'commenters mailbox'")
     private String email;
 
     @Column(name = "website_url", columnDefinition = "VARCHAR(50) NOT NULL DEFAULT '' COMMENT 'URL'")

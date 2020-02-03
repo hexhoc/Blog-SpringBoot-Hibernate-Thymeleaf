@@ -4,6 +4,7 @@ import com.hexhoc.springbootblog.article.ArticleService;
 import com.hexhoc.springbootblog.category.CategoryService;
 import com.hexhoc.springbootblog.comment.CommentService;
 import com.hexhoc.springbootblog.tag.TagService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,17 @@ public class UserController {
     ArticleService articleService;
     TagService tagService;
     CommentService commentService;
+
+    @Autowired
+    public UserController(CategoryService categoryService,
+                          ArticleService articleService,
+                          TagService tagService,
+                          CommentService commentService){
+        this.categoryService = categoryService;
+        this.articleService = articleService;
+        this.tagService = tagService;
+        this.commentService = commentService;
+    }
 
     @GetMapping({"", "/", "/index", "/index.html"})
     public String index(Model model) {
