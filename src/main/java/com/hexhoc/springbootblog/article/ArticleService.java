@@ -16,6 +16,8 @@ public interface ArticleService {
      */
     PageResult getArticlesForIndexPage(int page);
 
+    PageResult getArticlesPage(int page, int limit);
+
     PageResult getBlogsPageByCategory(String categoryName, Integer page);
 
     List<ArticleListDTO> convertToArticleListDTO(List<Article> articlesList);
@@ -25,5 +27,7 @@ public interface ArticleService {
     ArticleDetailDTO convertToArticleDetailDTO(Article article);
 
     Long getTotalArticle();
+
+
 
 }

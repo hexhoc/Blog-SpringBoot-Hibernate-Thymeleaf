@@ -26,12 +26,12 @@ public class Tag {
     @Column(name = "create_time", columnDefinition = "DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'create time'")
     private LocalDateTime createTime;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name="articles_tags_relation",
-            joinColumns         = @JoinColumn(name="tag_id", referencedColumnName="id"),
-            inverseJoinColumns  = @JoinColumn(name="article_id", referencedColumnName="id")
-    )
-    Set<Article> articles;
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinTable(name="articles_tags_relation",
+//            joinColumns         = @JoinColumn(name="tag_id", referencedColumnName="id"),
+//            inverseJoinColumns  = @JoinColumn(name="article_id", referencedColumnName="id")
+//    )
+//    Set<Article> articles;
 
 //    @Transient
 //    private Integer tagCount;
@@ -66,14 +66,6 @@ public class Tag {
 
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
-    }
-
-    public Set<Article> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(Set<Article> articles) {
-        this.articles = articles;
     }
 
     ////////////////////////////

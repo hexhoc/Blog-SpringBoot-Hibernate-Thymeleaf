@@ -1,21 +1,21 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '/admin/blogs/list',
+        url:'/admin/articles/list',
         datatype: "json",
         colModel: [
-            {label: 'id', name: 'blogId', index: 'blogId', width: 50, key: true, hidden: true},
-            {label: '标题', name: 'blogTitle', index: 'blogTitle', width: 140},
-            {label: '预览图', name: 'blogCoverImage', index: 'blogCoverImage', width: 120, formatter: coverImageFormatter},
-            {label: '浏览量', name: 'blogViews', index: 'blogViews', width: 60},
-            {label: '状态', name: 'blogStatus', index: 'blogStatus', width: 60, formatter: statusFormatter},
-            {label: '博客分类', name: 'blogCategoryName', index: 'blogCategoryName', width: 60},
-            {label: '添加时间', name: 'createTime', index: 'createTime', width: 90}
+            {label:'id', name:'id', index:'id', width: 50, key: true, hidden: true},
+            {label:'Title', name:'title', index:'title', width: 140},
+            {label:'Preview image', name:'coverImage', index:'coverImage', width: 120, formatter: coverImageFormatter},
+            {label:'Views', name:'views', index:'views', width: 60},
+            {label:'Status', name:'status', index:'status', width: 60, formatter: statusFormatter},
+            {label:'blog category', name:'categoryName', index:'categoryName', width: 60},
+            {label:'Add time', name:'createTime', index:'createTime', width: 90}
         ],
         height: 700,
         rowNum: 10,
         rowList: [10, 20, 50],
-        styleUI: 'Bootstrap',
-        loadtext: '信息读取中...',
+        styleUI:'Bootstrap',
+        loadtext:'Information reading...',
         rownumbers: false,
         rownumWidth: 20,
         autowidth: true,
@@ -33,7 +33,7 @@ $(function () {
             order: "order",
         },
         gridComplete: function () {
-            //隐藏grid底部滚动条
+            //Hide the scroll bar at the bottom of the grid
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
@@ -43,54 +43,54 @@ $(function () {
     });
 
     function coverImageFormatter(cellvalue) {
-        return "<img src='" + cellvalue + "' height=\"120\" width=\"160\" alt='coverImage'/>";
+        return "<img src='" + cellvalue + "'height=\"120\" width=\"160\" alt='coverImage'/>";
     }
 
     function statusFormatter(cellvalue) {
         if (cellvalue == 0) {
-            return "<button type=\"button\" class=\"btn btn-block btn-secondary btn-sm\" style=\"width: 50%;\">草稿</button>";
+            return "<button type=\"button\" class=\"btn btn-block btn-secondary btn-sm\" style=\"width: 50%;\">Draft</button>";
         }
         else if (cellvalue == 1) {
-            return "<button type=\"button\" class=\"btn btn-block btn-success btn-sm\" style=\"width: 50%;\">发布</button>";
+            return "<button type=\"button\" class=\"btn btn-block btn-success btn-sm\" style=\"width: 50%;\">Publish</button>";
         }
     }
 
 });
 
 /**
- * 搜索功能
+ * searching feature
  */
 function search() {
-    //标题关键字
+    //Title keywords
     var keyword = $('#keyword').val();
     if (!validLength(keyword, 20)) {
-        swal("搜索字段长度过大!", {
+        swal("The length of the search field is too large!", {
             icon: "error",
         });
         return false;
     }
-    //数据封装
+    //Data encapsulation
     var searchData = {keyword: keyword};
-    //传入查询条件参数
+    //Pass in query condition parameters
     $("#jqGrid").jqGrid("setGridParam", {postData: searchData});
-    //点击搜索按钮默认都从第一页开始
+    //Click the search button to start from the first page by default
     $("#jqGrid").jqGrid("setGridParam", {page: 1});
-    //提交post并刷新表格
-    $("#jqGrid").jqGrid("setGridParam", {url: '/admin/blogs/list'}).trigger("reloadGrid");
+    //Submit post and refresh the form
+    $("#jqGrid").jqGrid("setGridParam", {url:'/admin/articles/list'}).trigger("reloadGrid");
 }
 
 /**
- * jqGrid重新加载
+ * jqGrid reload
  */
 function reload() {
-    var page = $("#jqGrid").jqGrid('getGridParam', 'page');
+    var page = $("#jqGrid").jqGrid('getGridParam','page');
     $("#jqGrid").jqGrid('setGridParam', {
         page: page
     }).trigger("reloadGrid");
 }
 
 function addBlog() {
-    window.location.href = "/admin/blogs/edit";
+    window.location.href = "/admin/articles/edit";
 }
 
 function editBlog() {
@@ -98,7 +98,7 @@ function editBlog() {
     if (id == null) {
         return;
     }
-    window.location.href = "/admin/blogs/edit/" + id;
+    window.location.href = "/admin/articles/edit/" + id;
 }
 
 function deleteBlog() {
@@ -107,8 +107,8 @@ function deleteBlog() {
         return;
     }
     swal({
-        title: "确认弹框",
-        text: "确认要删除数据吗?",
+        title: "Confirmation popup",
+        text: "Are you sure you want to delete the data?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -116,12 +116,12 @@ function deleteBlog() {
             if (flag) {
                 $.ajax({
                     type: "POST",
-                    url: "/admin/blogs/delete",
+                    url: "/admin/articles/delete",
                     contentType: "application/json",
                     data: JSON.stringify(ids),
                     success: function (r) {
                         if (r.resultCode == 200) {
-                            swal("删除成功", {
+                            swal("Delete successfully", {
                                 icon: "success",
                             });
                             $("#jqGrid").trigger("reloadGrid");

@@ -19,7 +19,7 @@ $(function () {
         /**图片上传配置*/
         imageUpload: true,
         imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"], //图片上传格式
-        imageUploadURL: "/admin/blogs/md/uploadfile",
+        imageUploadURL: "/admin/articles/md/uploadfile",
         onload: function (obj) { //上传成功之后的回调
         }
     });
@@ -154,7 +154,7 @@ $('#saveButton').click(function () {
         });
         return;
     }
-    var url = '/admin/blogs/save';
+    var url = '/admin/articles/save';
     var swlMessage = '保存成功';
     var data = {
         "blogTitle": blogTitle, "blogSubUrl": blogSubUrl, "blogCategoryId": blogCategoryId,
@@ -162,7 +162,7 @@ $('#saveButton').click(function () {
         "enableComment": enableComment
     };
     if (blogId > 0) {
-        url = '/admin/blogs/update';
+        url = '/admin/articles/update';
         swlMessage = '修改成功';
         data = {
             "blogId": blogId,
@@ -193,7 +193,7 @@ $('#saveButton').click(function () {
                     confirmButtonClass: 'btn btn-success',
                     buttonsStyling: false
                 }).then(function () {
-                    window.location.href = "/admin/blogs";
+                    window.location.href = "/admin/articles";
                 })
             }
             else {
@@ -213,7 +213,7 @@ $('#saveButton').click(function () {
 });
 
 $('#cancelButton').click(function () {
-    window.location.href = "/admin/blogs";
+    window.location.href = "/admin/articles";
 });
 
 /**

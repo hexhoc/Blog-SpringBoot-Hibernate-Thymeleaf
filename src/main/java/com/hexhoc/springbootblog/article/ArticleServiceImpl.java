@@ -42,6 +42,16 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
+    public PageResult getArticlesPage(int page, int limit) {
+        PageRequest pageRequest = PageRequest.of(page, limit);
+        List<Article> articlesList = articleRepository.findAll();
+        int total = (int)articleRepository.count();
+        PageResult pageResult = new PageResult(articlesList, total, limit, page);
+
+        return pageResult;
+    }
+
+    @Override
     public PageResult getBlogsPageByCategory(String categoryName, Integer page) {
 
         int limit = 8;
@@ -59,6 +69,7 @@ public class ArticleServiceImpl implements ArticleService{
         return new PageResult(articlesListDTO, total, limit, page);
     }
 
+    @Override
     public ArticleDetailDTO getArticleDetailDTOById(Long id) {
 
         Optional<Article> articleOptional = articleRepository.findById(id);
@@ -71,28 +82,7 @@ public class ArticleServiceImpl implements ArticleService{
         return articleDetailDTO;
     }
 
-
-
     @Override
-    public List<ArticleListDTO> convertToArticleListDTO(List<Article> articlesList) {
-
-        List<ArticleListDTO> articlesListDTO = new ArrayList<>();
-
-        for (Article article: articlesList) {
-            ArticleListDTO articleListDTO = new ArticleListDTO();
-            BeanUtils.copyProperties(article, articleListDTO);
-
-            Category category = article.getCategory();
-            articleListDTO.setCategoryId(category.getId());
-            articleListDTO.setCategoryName(category.getName());
-            articleListDTO.setCategoryIcon(category.getIcon());
-
-            articlesListDTO.add(articleListDTO);
-        }
-
-        return articlesListDTO;
-    }
-
     public ArticleDetailDTO convertToArticleDetailDTO(Article article) {
 
         ArticleDetailDTO articleDetailDTO = new ArticleDetailDTO();
@@ -120,6 +110,26 @@ public class ArticleServiceImpl implements ArticleService{
 
         return articleDetailDTO;
 
+    }
+
+    @Override
+    public List<ArticleListDTO> convertToArticleListDTO(List<Article> articlesList) {
+
+        List<ArticleListDTO> articlesListDTO = new ArrayList<>();
+
+        for (Article article: articlesList) {
+            ArticleListDTO articleListDTO = new ArticleListDTO();
+            BeanUtils.copyProperties(article, articleListDTO);
+
+            Category category = article.getCategory();
+            articleListDTO.setCategoryId(category.getId());
+            articleListDTO.setCategoryName(category.getName());
+            articleListDTO.setCategoryIcon(category.getIcon());
+
+            articlesListDTO.add(articleListDTO);
+        }
+
+        return articlesListDTO;
     }
 
     @Override
