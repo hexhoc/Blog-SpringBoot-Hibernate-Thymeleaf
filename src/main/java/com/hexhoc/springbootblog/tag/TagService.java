@@ -8,4 +8,6 @@ public interface TagService {
     List<Tag> getTagsWithArticlesCount();
 
     Long getTotalTags();
+
+    Tag findOrCreateTag(String tagName);
 }

@@ -36,6 +36,14 @@ public class Tag {
 //    @Transient
 //    private Integer tagCount;
 
+    public Tag() {
+
+    }
+
+    public Tag(String name) {
+        this.name = name;
+    }
+
     ////////////////////////////
     //GETTER AND SETTER
     ////////////////////////////

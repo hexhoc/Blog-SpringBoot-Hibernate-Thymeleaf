@@ -1,11 +1,11 @@
 $('#commentSubmit').click(function () {
-    var blogId = $('#blogId').val();
+    var articleId = $('#articleId').val();
     var verifyCode = $('#verifyCode').val();
     var commentator = $('#commentator').val();
     var email = $('#email').val();
     var websiteUrl = $('#websiteUrl').val();
     var commentBody = $('#commentBody').val();
-    if (isNull(blogId)) {
+    if (isNull(articleId)) {
         swal("Parameter exception", {
             icon: "warning",
         });
@@ -42,7 +42,7 @@ $('#commentSubmit').click(function () {
         return;
     }
     var data = {
-        "blogId": blogId, "verifyCode": verifyCode, "commentator": commentator,
+        "articleId": blogId, "verifyCode": verifyCode, "commentator": commentator,
         "email": email, "websiteUrl": websiteUrl, "commentBody": commentBody
     };
     console.log(data);

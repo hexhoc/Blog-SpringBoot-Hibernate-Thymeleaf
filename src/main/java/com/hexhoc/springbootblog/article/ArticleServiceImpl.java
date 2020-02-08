@@ -1,11 +1,14 @@
 package com.hexhoc.springbootblog.article;
 
 import com.hexhoc.springbootblog.article.DTO.ArticleDetailDTO;
+import com.hexhoc.springbootblog.article.DTO.ArticleEditDTO;
 import com.hexhoc.springbootblog.article.DTO.ArticleListDTO;
 import com.hexhoc.springbootblog.category.Category;
 import com.hexhoc.springbootblog.category.CategoryRepository;
 import com.hexhoc.springbootblog.common.util.PageResult;
 import com.hexhoc.springbootblog.tag.Tag;
+import com.hexhoc.springbootblog.tag.TagRepository;
+import com.hexhoc.springbootblog.tag.TagService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -13,19 +16,29 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class ArticleServiceImpl implements ArticleService{
 
     ArticleRepository articleRepository;
     CategoryRepository categoryRepository;
+    TagService tagService;
 
     @Autowired
-    public ArticleServiceImpl(ArticleRepository articleRepository, CategoryRepository categoryRepository){
+    public ArticleServiceImpl(ArticleRepository articleRepository,
+                              CategoryRepository categoryRepository,
+                              TagService tagService){
         this.articleRepository = articleRepository;
         this.categoryRepository = categoryRepository;
+        this.tagService = tagService;
     }
 
+
+    public Optional<Article> getArticleById(Long articleId){
+        return articleRepository.findById(articleId);
+    }
 
     @Override
     public PageResult getArticlesForIndexPage(int page) {
@@ -133,8 +146,86 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
+    public Article convertArticleEditDTOToArticle(ArticleEditDTO articleEditDTO) {
+
+        Optional<Category> categoryOptional = categoryRepository.findById(articleEditDTO.getBlogCategoryId());
+        Set<Tag> TagsList = Arrays.stream(articleEditDTO.getBlogTags().split(",|\\.| "))
+                .map(tagService::findOrCreateTag)
+                .collect(Collectors.toSet());
+
+        Article article = new Article();
+        article.setTitle(articleEditDTO.getBlogTitle());
+        article.setSubUrl(articleEditDTO.getBlogSubUrl());
+        article.setCategory(categoryOptional.get());
+        article.setTags(TagsList);
+        article.setContent(articleEditDTO.getBlogContent());
+        article.setCoverImage(articleEditDTO.getBlogCoverImage());
+        article.setStatus(articleEditDTO.getBlogStatus());
+        article.setEnableComment(articleEditDTO.getEnableComment());
+
+        return article;
+    }
+
+    @Override
     public Long getTotalArticle() {
         return articleRepository.count();
     }
+
+    @Override
+    public void saveArticle(Article article) {
+       articleRepository.save(article);
+    }
+
+    @Override
+    public String saveArticle(ArticleEditDTO articleEditDTO) {
+
+        String validateResult = articleEditDTO.validateArticle();
+        if (validateResult.length() > 0) {
+            return validateResult;
+        }
+
+        Article article = convertArticleEditDTOToArticle(articleEditDTO);
+        articleRepository.save(article);
+
+        return "success";
+    }
+
+    @Override
+    public String updateArticle(Article article) {
+
+        String result = "";
+
+        Optional<Article> articleOptional = articleRepository.findById(article.getId());
+
+        if (articleOptional.isEmpty()) {
+            result = "article is not found";
+        } else {
+            article.setId(articleOptional.get().getId());
+            articleRepository.save(article);
+            result = "success";
+        }
+
+        return result;
+    }
+
+    @Override
+    public String updateArticle(ArticleEditDTO articleEditDTO) {
+        String result = "";
+
+        Optional<Article> articleOptional = articleRepository.findById(articleEditDTO.getBlogId());
+
+        if (articleOptional.isEmpty()) {
+            result = "article is not found";
+        } else {
+            Article article = convertArticleEditDTOToArticle(articleEditDTO);
+            article.setId(article.getId());
+            articleRepository.save(article);
+            result = "success";
+        }
+
+        return result;
+    }
+
+
 
 }
