@@ -114,7 +114,6 @@ public class ArticleController {
         return "admin/edit";
     }
 
-    //TODO Remake to DTO
     @PostMapping("/admin/articles/save")
     @ResponseBody
     public PostResponse save(@RequestParam ArticleEditDTO articleEditDTO) {

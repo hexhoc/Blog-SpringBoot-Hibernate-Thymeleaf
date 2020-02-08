@@ -16,7 +16,7 @@ public class Tag {
     @Column(name = "id", columnDefinition = "INT(11) NOT NULL COMMENT 'tag table primary key id'")
     private Integer id;
 
-    @Column(name = "name", columnDefinition = "VARCHAR(100) NOT NULL COMMENT 'tag name'")
+    @Column(name = "name", columnDefinition = "VARCHAR(100) NOT NULL UNIQUE COMMENT 'tag name'")
     private String name;
 
     @Column(name = "is_deleted", columnDefinition = "BOOLEAN NOT NULL DEFAULT '0' COMMENT 'Whether to delete 0=No 1=Yes'")
