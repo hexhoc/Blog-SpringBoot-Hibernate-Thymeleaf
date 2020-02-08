@@ -173,6 +173,7 @@ public class Article {
     //OVERRIDE METHODS
     ////////////////////////////
 
+    //TODO test and fix to string
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

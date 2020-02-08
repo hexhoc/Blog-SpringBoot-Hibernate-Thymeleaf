@@ -109,15 +109,16 @@ public class ArticleController {
         if (articleOptional.isEmpty()) {
             return "error/error_400";
         }
-        request.setAttribute("article", articleOptional.get());
+        Article article = articleOptional.get();
+        request.setAttribute("article", article);
         request.setAttribute("categories", categoryService.getAllCategories());
+        request.setAttribute("tags", articleService.getTagsListAsString(article.getTags()));
         return "admin/edit";
     }
 
     @PostMapping("/admin/articles/save")
     @ResponseBody
-    public PostResponse save(@RequestParam ArticleEditDTO articleEditDTO) {
-
+    public PostResponse save(ArticleEditDTO articleEditDTO) {
         String saveArticleResult = articleService.saveArticle(articleEditDTO);
         if ("success".equals(saveArticleResult)) {
             return PostResponse.genSuccessResult("Added successfully");
@@ -129,8 +130,8 @@ public class ArticleController {
 
     @PostMapping("/admin/articles/update")
     @ResponseBody
-    public PostResponse update(@RequestParam ArticleEditDTO articleEditDTO) {
-        String saveArticleResult = articleService.saveArticle(articleEditDTO);
+    public PostResponse update(ArticleEditDTO articleEditDTO) {
+        String saveArticleResult = articleService.updateArticle(articleEditDTO);
         if ("success".equals(saveArticleResult)) {
             return PostResponse.genSuccessResult("Added successfully");
         } else {

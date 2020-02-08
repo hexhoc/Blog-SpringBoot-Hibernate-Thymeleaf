@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -151,7 +152,7 @@ public class ArticleServiceImpl implements ArticleService{
         Optional<Category> categoryOptional = categoryRepository.findById(articleEditDTO.getBlogCategoryId());
         Set<Tag> TagsList = Arrays.stream(articleEditDTO.getBlogTags().split(",|\\.| "))
                 .map(tagService::findOrCreateTag)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(HashSet::new));
 
         Article article = new Article();
         article.setTitle(articleEditDTO.getBlogTitle());
@@ -185,6 +186,8 @@ public class ArticleServiceImpl implements ArticleService{
         }
 
         Article article = convertArticleEditDTOToArticle(articleEditDTO);
+        article.setCreateTime(LocalDateTime.now());
+        article.setIsDeleted(false);
         articleRepository.save(article);
 
         return "success";
@@ -217,15 +220,41 @@ public class ArticleServiceImpl implements ArticleService{
         if (articleOptional.isEmpty()) {
             result = "article is not found";
         } else {
-            Article article = convertArticleEditDTOToArticle(articleEditDTO);
-            article.setId(article.getId());
-            articleRepository.save(article);
+            Article articleEdited = convertArticleEditDTOToArticle(articleEditDTO);
+            Article articleCurrent = articleOptional.get();
+
+            //TODO normal convert DTO to Entity
+            articleCurrent.setUpdateTime(LocalDateTime.now());
+            articleCurrent.setTitle(articleEdited.getTitle());
+            articleCurrent.setSubUrl(articleEdited.getSubUrl());
+            articleCurrent.setCategory(articleEdited.getCategory());
+            articleCurrent.setTags(articleEdited.getTags());
+            articleCurrent.setContent(articleEdited.getContent());
+            articleCurrent.setCoverImage(articleEdited.getCoverImage());
+            articleCurrent.setStatus(articleEdited.getStatus());
+            articleCurrent.setEnableComment(articleEdited.getEnableComment());
+
+            articleRepository.save(articleCurrent);
             result = "success";
         }
 
         return result;
     }
 
+    @Override
+    public String getTagsListAsString(Set<Tag> tagsSet) {
+
+        return tagsSet.stream()
+                .map(Tag::getName)
+                .collect(Collectors.joining(", "));
+//        Set<String> simpleTagsList = new HashSet<>();
+//
+//        for(Tag tag : tagsSet) {
+//            simpleTagsList.add(tag.getName());
+//        }
+//
+//        return simpleTagsList;
+    }
 
 
 }

@@ -19,7 +19,7 @@ $(function () {
         /**Picture upload configuration*/
         imageUpload: true,
         imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"], //Image upload format
-        imageUploadURL: "/admin/blogs/md/uploadfile",
+        imageUploadURL: "/admin/articles/md/uploadfile",
         onload: function (obj) {//Callback after successful upload
         }
     });
@@ -147,13 +147,19 @@ $('#saveButton').click(function () {
     var blogCoverImage = $('#blogCoverImage')[0].src;
     var blogStatus = $("input[name='blogStatus']:checked").val();
     var enableComment = $("input[name='enableComment']:checked").val();
+    if (blogStatus === undefined) {
+        blogStatus = '1';
+    }
+    if (enableComment === undefined) {
+        enableComment = '1';
+    }
     if (isNull(blogCoverImage) || blogCoverImage.indexOf('img-upload') != -1) {
         swal("Cover image cannot be empty", {
             icon: "error",
         });
         return;
     }
-    var url ='/admin/blogs/save';
+    var url ='/admin/articles/save';
     var swlMessage ='Save successfully';
     var data = {
         "blogTitle": blogTitle, "blogSubUrl": blogSubUrl, "blogCategoryId": blogCategoryId,
@@ -161,7 +167,7 @@ $('#saveButton').click(function () {
         "enableComment": enableComment
     };
     if (blogId> 0) {
-        url ='/admin/blogs/update';
+        url ='/admin/articles/update';
         swlMessage ='Modified successfully';
         data = {
             "blogId": blogId,
@@ -192,7 +198,7 @@ $('#saveButton').click(function () {
                     confirmButtonClass:'btn btn-success',
                     buttonsStyling: false
                 }).then(function () {
-                    window.location.href = "/admin/blogs";
+                    window.location.href = "/admin/articles";
                 })
             }
             else {
@@ -203,8 +209,8 @@ $('#saveButton').click(function () {
             }
             ;
         },
-        error: function () {
-            swal("The operation failed", {
+        error: function (jqXHR, exception) {
+            swal(exception, {
                 icon: "error",
             });
         }
@@ -212,7 +218,7 @@ $('#saveButton').click(function () {
 });
 
 $('#cancelButton').click(function () {
-    window.location.href = "/admin/blogs";
+    window.location.href = "/admin/articles";
 });
 
 /**

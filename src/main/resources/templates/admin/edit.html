@@ -37,7 +37,7 @@
                                 &nbsp;&nbsp;
                                 <input type="text" class="form-control" id="blogTags" name="blogTags"
                                        placeholder="Please enter the article tag"
-                                       th:value="${article!=null and article.tags!=null }?${article.tags}:''"
+                                       th:value="${tags!=null }?${tags}:''"
                                        style="width: 100%;">
                             </div>
                             <div class="form-group" style="display:flex;">
@@ -120,18 +120,18 @@
                                     <label class="control-label">Article status:&nbsp;</label>
                                     <input name="blogStatus" type="radio" id="publish"
                                            checked=true
-                                           th:checked="${article == null||(article != null and article.status != null and article.status==1)} ?true:false"
+                                           th:checked="${article == null||(article != null and article.status != null and article.status==true)} ?true:false"
                                            value="1"/>&nbsp;Post&nbsp;
                                     <input name="blogStatus" type="radio" id="draft" value="0"
-                                           th:checked="${article!=null and article.status!=null and article.status==0} ?true:false"/>&nbsp;draft&nbsp;
+                                           th:checked="${article!=null and article.status!=null and article.status==false} ?true:false"/>&nbsp;draft&nbsp;
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label">Whether to allow comments:&nbsp;</label>
+                                    <label class="control-label">Enable comments:&nbsp;</label>
                                     <input name="enableComment" type="radio" id="enableCommentTrue" checked=true
-                                           th:checked="${article == null||(article!=null and article.enableComment!=null and article.enableComment==0)} ?true:false"
-                                           value="0"/>&nbsp;Yes&nbsp;
-                                    <input name="enableComment" type="radio" id="enableCommentFalse" value="1"
-                                           th:checked="${article!=null and article.enableComment!=null and article.enableComment==1} ?true:false"/>&nbsp;No&nbsp;
+                                           th:checked="${article == null||(article!=null and article.enableComment!=null and article.enableComment==true)} ?true:false"
+                                           value="1"/>&nbsp;Yes&nbsp;
+                                    <input name="enableComment" type="radio" id="enableCommentFalse" value="0"
+                                           th:checked="${article!=null and article.enableComment!=null and article.enableComment==false} ?true:false"/>&nbsp;No&nbsp;
                                 </div>
                             </form>
                         </div>

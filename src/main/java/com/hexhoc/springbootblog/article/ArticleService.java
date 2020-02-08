@@ -4,9 +4,9 @@ import com.hexhoc.springbootblog.article.DTO.ArticleDetailDTO;
 import com.hexhoc.springbootblog.article.DTO.ArticleEditDTO;
 import com.hexhoc.springbootblog.article.DTO.ArticleListDTO;
 import com.hexhoc.springbootblog.common.util.PageResult;
+import com.hexhoc.springbootblog.tag.Tag;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public interface ArticleService {
 
@@ -42,4 +42,5 @@ public interface ArticleService {
 
     String updateArticle(ArticleEditDTO articleEditDTO);
 
+    String getTagsListAsString(Set<Tag> tagsSet);
 }
