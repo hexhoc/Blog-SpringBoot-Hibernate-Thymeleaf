@@ -5,16 +5,26 @@ import com.hexhoc.springbootblog.article.DTO.ArticleEditDTO;
 import com.hexhoc.springbootblog.category.CategoryService;
 import com.hexhoc.springbootblog.common.util.PageResult;
 import com.hexhoc.springbootblog.common.util.PostResponse;
+import com.hexhoc.springbootblog.common.util.UriUtils;
 import com.hexhoc.springbootblog.config.ConfigService;
+import com.hexhoc.springbootblog.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 
 @Controller
 public class ArticleController {
@@ -80,6 +90,7 @@ public class ArticleController {
     @GetMapping("/admin/articles/list")
     @ResponseBody
     public PostResponse list(@RequestParam Map<String, Object> params) {
+        //TODO fix pagination
         if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
             return PostResponse.genFailResult("Parameter abnormal！");
         }
@@ -139,5 +150,36 @@ public class ArticleController {
         }
     }
 
+    @PostMapping({"admin/upload/file"})
+    @ResponseBody
+    public PostResponse upload(HttpServletRequest httpServletRequest, @RequestParam("file") MultipartFile file) throws URISyntaxException {
+        String fileName = file.getOriginalFilename();
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        //Generic method of file name
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        Random r = new Random();
+        StringBuilder tempName = new StringBuilder();
+        tempName.append(sdf.format(new Date())).append(r.nextInt(100)).append(suffixName);
+        String newFileName = tempName.toString();
+        File fileDirectory = new File(Constants.FILE_UPLOAD_DIC);
+        //Create a file
+        File destFile = new File(Constants.FILE_UPLOAD_DIC + newFileName);
+        try {
+            if (!fileDirectory.exists()) {
+                if (!fileDirectory.mkdir()) {
+                    throw new IOException("The folder creation failed, the path is:" + fileDirectory);
+                }
+            }
+            file.transferTo(destFile);
+            PostResponse resultSuccess = PostResponse.genSuccessResult();
+            resultSuccess.setData(UriUtils.getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/" + newFileName);
+            return resultSuccess;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return PostResponse.genFailResult("File upload failed");
+        }
+    }
 
-}
+
+
+    }

@@ -188,6 +188,7 @@ public class ArticleServiceImpl implements ArticleService{
         Article article = convertArticleEditDTOToArticle(articleEditDTO);
         article.setCreateTime(LocalDateTime.now());
         article.setIsDeleted(false);
+        article.setViews(0L);
         articleRepository.save(article);
 
         return "success";
