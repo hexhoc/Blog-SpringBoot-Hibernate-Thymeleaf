@@ -24,7 +24,7 @@ $(function () {
         jsonReader: {
             root: "data.list",
             page: "data.currPage",
-            total: "data.totalPage",
+            total: "data.totalPages",
             records: "data.totalCount"
         },
         prmNames: {

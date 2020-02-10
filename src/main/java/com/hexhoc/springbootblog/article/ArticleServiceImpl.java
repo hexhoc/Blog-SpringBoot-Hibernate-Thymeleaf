@@ -7,10 +7,10 @@ import com.hexhoc.springbootblog.category.Category;
 import com.hexhoc.springbootblog.category.CategoryRepository;
 import com.hexhoc.springbootblog.common.util.PageResult;
 import com.hexhoc.springbootblog.tag.Tag;
-import com.hexhoc.springbootblog.tag.TagRepository;
 import com.hexhoc.springbootblog.tag.TagService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class ArticleServiceImpl implements ArticleService{
@@ -57,10 +56,10 @@ public class ArticleServiceImpl implements ArticleService{
 
     @Override
     public PageResult getArticlesPage(int page, int limit) {
-        PageRequest pageRequest = PageRequest.of(page, limit);
-        List<Article> articlesList = articleRepository.findAll();
+        PageRequest pageRequest = PageRequest.of(page-1, limit);
+        List<Article> articlesPage = articleRepository.findAll(pageRequest).getContent();
         int total = (int)articleRepository.count();
-        PageResult pageResult = new PageResult(articlesList, total, limit, page);
+        PageResult pageResult = new PageResult(articlesPage, total, limit, page);
 
         return pageResult;
     }
@@ -255,6 +254,16 @@ public class ArticleServiceImpl implements ArticleService{
 //        }
 //
 //        return simpleTagsList;
+    }
+
+    @Override
+    public Boolean deleteBatch(ArrayList<Long> ids) {
+
+        //// TODO: 21.07.2021 Need try catch
+        List<Article> articlesList = articleRepository.findAllById(ids);
+        articleRepository.saveAll(articlesList);
+
+        return true;
     }
 
 

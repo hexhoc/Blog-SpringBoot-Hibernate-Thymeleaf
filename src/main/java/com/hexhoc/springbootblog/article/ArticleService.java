@@ -43,4 +43,6 @@ public interface ArticleService {
     String updateArticle(ArticleEditDTO articleEditDTO);
 
     String getTagsListAsString(Set<Tag> tagsSet);
+
+    Boolean deleteBatch(ArrayList<Long> ids);
 }

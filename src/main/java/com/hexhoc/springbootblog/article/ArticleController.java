@@ -8,6 +8,7 @@ import com.hexhoc.springbootblog.common.util.PostResponse;
 import com.hexhoc.springbootblog.common.util.UriUtils;
 import com.hexhoc.springbootblog.config.ConfigService;
 import com.hexhoc.springbootblog.constants.Constants;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +22,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Controller
 public class ArticleController {
@@ -90,7 +88,7 @@ public class ArticleController {
     @GetMapping("/admin/articles/list")
     @ResponseBody
     public PostResponse list(@RequestParam Map<String, Object> params) {
-        //TODO fix pagination
+        // TODO: 21.07.2021 fix pagination
         if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
             return PostResponse.genFailResult("Parameter abnormal！");
         }
@@ -180,6 +178,16 @@ public class ArticleController {
         }
     }
 
-
-
+    @PostMapping("/articles/delete")
+    @ResponseBody
+    public PostResponse delete(@RequestBody ArrayList<Long> ids) {
+        if (ids.size() < 1) {
+            return PostResponse.genFailResult("The parameter is abnormal!");
+        }
+        if (articleService.deleteBatch(ids)) {
+            return PostResponse.genSuccessResult();
+        } else {
+            return PostResponse.genFailResult("failed to delete");
+        }
     }
+}

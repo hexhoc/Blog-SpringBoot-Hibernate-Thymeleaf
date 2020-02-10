@@ -13,8 +13,6 @@ features:
             - search by keyword
     Article:
         ArticleController:
-            - edit article
-            - save article
             - delete article
             - upload some files
     User:
