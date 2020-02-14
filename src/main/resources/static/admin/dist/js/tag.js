@@ -1,17 +1,17 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '/admin/tags/list',
+        url:'/admin/tags/list',
         datatype: "json",
         colModel: [
-            {label: 'id', name: 'tagId', index: 'tagId', width: 50, key: true, hidden: true},
-            {label: '标签名称', name: 'tagName', index: 'tagName', width: 240},
-            {label: '添加时间', name: 'createTime', index: 'createTime', width: 120}
+            {label:'id', name:'tagId', index:'tagId', width: 50, key: true, hidden: true},
+            {label:'tag name', name:'tagName', index:'tagName', width: 240},
+            {label:'Add time', name:'createTime', index:'createTime', width: 120}
         ],
         height: 560,
         rowNum: 10,
         rowList: [10, 20, 50],
-        styleUI: 'Bootstrap',
-        loadtext: '信息读取中...',
+        styleUI:'Bootstrap',
+        loadtext:'Information reading...',
         rownumbers: false,
         rownumWidth: 20,
         autowidth: true,
@@ -29,7 +29,7 @@ $(function () {
             order: "order",
         },
         gridComplete: function () {
-            //隐藏grid底部滚动条
+            //Hide the scroll bar at the bottom of the grid
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
@@ -39,10 +39,10 @@ $(function () {
 });
 
 /**
- * jqGrid重新加载
+ * jqGrid reload
  */
 function reload() {
-    var page = $("#jqGrid").jqGrid('getGridParam', 'page');
+    var page = $("#jqGrid").jqGrid('getGridParam','page');
     $("#jqGrid").jqGrid('setGridParam', {
         page: page
     }).trigger("reloadGrid");
@@ -51,18 +51,18 @@ function reload() {
 function tagAdd() {
     var tagName = $("#tagName").val();
     if (!validCN_ENString2_18(tagName)) {
-        swal("标签名称不规范", {
+        swal("Improper label name", {
             icon: "error",
         });
     } else {
-        var url = '/admin/tags/save?tagName=' + tagName;
+        var url ='/admin/tags/save?tagName=' + tagName;
         $.ajax({
-            type: 'POST',//方法类型
+            type:'POST',//Method type
             url: url,
             success: function (result) {
                 if (result.resultCode == 200) {
                     $("#tagName").val('')
-                    swal("保存成功", {
+                    swal("Save successfully", {
                         icon: "success",
                     });
                     reload();
@@ -76,7 +76,7 @@ function tagAdd() {
                 ;
             },
             error: function () {
-                swal("操作失败", {
+                swal("The operation failed", {
                     icon: "error",
                 });
             }
@@ -90,8 +90,8 @@ function deleteTag() {
         return;
     }
     swal({
-        title: "确认弹框",
-        text: "确认要删除数据吗?",
+        title: "Confirmation popup",
+        text: "Are you sure you want to delete the data?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -104,7 +104,7 @@ function deleteTag() {
                     data: JSON.stringify(ids),
                     success: function (r) {
                         if (r.resultCode == 200) {
-                            swal("删除成功", {
+                            swal("Delete successfully", {
                                 icon: "success",
                             });
                             $("#jqGrid").trigger("reloadGrid");

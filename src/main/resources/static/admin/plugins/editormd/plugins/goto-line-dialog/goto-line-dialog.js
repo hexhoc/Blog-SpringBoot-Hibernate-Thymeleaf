@@ -17,31 +17,7 @@
 		var pluginName   = "goto-line-dialog";
 
 		var langs = {
-			"zh-cn" : {
-				toolbar : {
-					"goto-line" : "跳转到行"
-				},
-				dialog : {
-					"goto-line" : {
-						title  : "跳转到行",
-						label  : "请输入行号",
-						error  : "错误："
-					}
-				}
-			},
-			"zh-tw" : {
-				toolbar : {
-					"goto-line" : "跳轉到行"
-				},
-				dialog : {
-					"goto-line" : {
-						title  : "跳轉到行",
-						label  : "請輸入行號",
-						error  : "錯誤："
-					}
-				}
-			},
-			"en" : {
+			"en-US" : {
 				toolbar : {
 					"goto-line" : "Goto line"
 				},

@@ -1,18 +1,18 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '/admin/categories/list',
+        url:'/admin/categories/list',
         datatype: "json",
         colModel: [
-            {label: 'id', name: 'categoryId', index: 'categoryId', width: 50, key: true, hidden: true},
-            {label: '分类名称', name: 'categoryName', index: 'categoryName', width: 240},
-            {label: '分类图标', name: 'categoryIcon', index: 'categoryIcon', width: 120, formatter: imgFormatter},
-            {label: '添加时间', name: 'createTime', index: 'createTime', width: 120}
+            {label:'id', name:'categoryId', index:'categoryId', width: 50, key: true, hidden: true},
+            {label:'category name', name:'categoryName', index:'categoryName', width: 240},
+            {label:'category icon', name:'categoryIcon', index:'categoryIcon', width: 120, formatter: imgFormatter},
+            {label:'Add time', name:'createTime', index:'createTime', width: 120}
         ],
         height: 560,
         rowNum: 10,
         rowList: [10, 20, 50],
-        styleUI: 'Bootstrap',
-        loadtext: '信息读取中...',
+        styleUI:'Bootstrap',
+        loadtext:'Information reading...',
         rownumbers: false,
         rownumWidth: 20,
         autowidth: true,
@@ -30,7 +30,7 @@ $(function () {
             order: "order",
         },
         gridComplete: function () {
-            //隐藏grid底部滚动条
+            //Hide the scroll bar at the bottom of the grid
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
@@ -56,14 +56,14 @@ $(function () {
 });
 
 function imgFormatter(cellvalue) {
-    return "<a href='" + cellvalue + "'> <img src='" + cellvalue + "' height=\"64\" width=\"64\" alt='icon'/></a>";
+    return "<a href='" + cellvalue + "'> <img src='" + cellvalue + "'height=\"64\" width=\"64\" alt='icon'/></a> ";
 }
 
 /**
- * jqGrid重新加载
+ * jqGrid reload
  */
 function reload() {
-    var page = $("#jqGrid").jqGrid('getGridParam', 'page');
+    var page = $("#jqGrid").jqGrid('getGridParam','page');
     $("#jqGrid").jqGrid('setGridParam', {
         page: page
     }).trigger("reloadGrid");
@@ -71,31 +71,31 @@ function reload() {
 
 function categoryAdd() {
     reset();
-    $('.modal-title').html('分类添加');
+    $('.modal-title').html('Category Add');
     $('#categoryModal').modal('show');
 }
 
-//绑定modal上的保存按钮
+//Binding the save button on the modal
 $('#saveButton').click(function () {
     var categoryName = $("#categoryName").val();
     if (!validCN_ENString2_18(categoryName)) {
         $('#edit-error-msg').css("display", "block");
-        $('#edit-error-msg').html("请输入符合规范的分类名称！");
+        $('#edit-error-msg').html("Please enter a category name that meets the specification!");
     } else {
         var params = $("#categoryForm").serialize();
-        var url = '/admin/categories/save';
+        var url ='/admin/categories/save';
         var id = getSelectedRowWithoutAlert();
         if (id != null) {
-            url = '/admin/categories/update';
+            url ='/admin/categories/update';
         }
         $.ajax({
-            type: 'POST',//方法类型
+            type:'POST',//Method type
             url: url,
             data: params,
             success: function (result) {
                 if (result.resultCode == 200) {
                     $('#categoryModal').modal('hide');
-                    swal("保存成功", {
+                    swal("Save successfully", {
                         icon: "success",
                     });
                     reload();
@@ -109,7 +109,7 @@ $('#saveButton').click(function () {
                 ;
             },
             error: function () {
-                swal("操作失败", {
+                swal("The operation failed", {
                     icon: "error",
                 });
             }
@@ -123,7 +123,7 @@ function categoryEdit() {
     if (id == null) {
         return;
     }
-    $('.modal-title').html('分类编辑');
+    $('.modal-title').html('Category Edit');
     $('#categoryModal').modal('show');
     $("#categoryId").val(id);
 }
@@ -134,8 +134,8 @@ function deleteCagegory() {
         return;
     }
     swal({
-        title: "确认弹框",
-        text: "确认要删除数据吗?",
+        title: "Confirmation popup",
+        text: "Are you sure you want to delete the data?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -148,7 +148,7 @@ function deleteCagegory() {
                     data: JSON.stringify(ids),
                     success: function (r) {
                         if (r.resultCode == 200) {
-                            swal("删除成功", {
+                            swal("Delete successfully", {
                                 icon: "success",
                             });
                             $("#jqGrid").trigger("reloadGrid");
@@ -167,5 +167,5 @@ function deleteCagegory() {
 
 function reset() {
     $("#categoryName").val('');
-    $("#categoryIcon option:first").prop("selected", 'selected');
+    $("#categoryIcon option:first").prop("selected",'selected');
 }

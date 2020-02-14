@@ -33,27 +33,7 @@
 		];
 
 		var langs = {
-			"zh-cn" : {
-				toolbar : {
-					emoji : "Emoji 表情"
-				},
-				dialog : {
-					emoji : {
-						title : "Emoji 表情"
-					}
-				}
-			},
-			"zh-tw" : {
-				toolbar : {
-					emoji : "Emoji 表情"
-				},
-				dialog : {
-					emoji : {
-						title : "Emoji 表情"
-					}
-				}
-			},
-			"en" : {
+			"en-US" : {
 				toolbar : {
 					emoji : "Emoji"
 				},

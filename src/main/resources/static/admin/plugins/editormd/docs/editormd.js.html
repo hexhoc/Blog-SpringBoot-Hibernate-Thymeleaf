@@ -2964,7 +2964,7 @@
             var selection = cm.getSelection();
             var date      = new Date();
             var langName  = this.settings.lang.name;
-            var datefmt   = editormd.dateFormat() + " " + editormd.dateFormat((langName === "zh-cn" || langName === "zh-tw") ? "cn-week-day" : "week-day");
+            var datefmt   = editormd.dateFormat() + " " + editormd.dateFormat("week-day");
 
             cm.replaceSelection(datefmt);
         },

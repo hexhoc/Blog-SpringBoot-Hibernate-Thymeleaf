@@ -17,37 +17,7 @@
 		var pluginName   = "table-dialog";
 
 		var langs = {
-			"zh-cn" : {
-				toolbar : {
-					table : "表格"
-				},
-				dialog : {
-					table : {
-						title      : "添加表格",
-						cellsLabel : "单元格数",
-						alignLabel : "对齐方式",
-						rows       : "行数",
-						cols       : "列数",
-						aligns     : ["默认", "左对齐", "居中对齐", "右对齐"]
-					}
-				}
-			},
-			"zh-tw" : {
-				toolbar : {
-					table : "添加表格"
-				},
-				dialog : {
-					table : {
-						title      : "添加表格",
-						cellsLabel : "單元格數",
-						alignLabel : "對齊方式",
-						rows       : "行數",
-						cols       : "列數",
-						aligns     : ["默認", "左對齊", "居中對齊", "右對齊"]
-					}
-				}
-			},
-			"en" : {
+			"en-US" : {
 				toolbar : {
 					table : "Tables"
 				},
