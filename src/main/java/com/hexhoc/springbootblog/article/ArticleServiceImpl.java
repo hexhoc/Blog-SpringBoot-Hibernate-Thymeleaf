@@ -261,7 +261,7 @@ public class ArticleServiceImpl implements ArticleService{
 
         //// TODO: 21.07.2021 Need try catch
         List<Article> articlesList = articleRepository.findAllById(ids);
-        articleRepository.saveAll(articlesList);
+        articleRepository.deleteAll(articlesList);
 
         return true;
     }

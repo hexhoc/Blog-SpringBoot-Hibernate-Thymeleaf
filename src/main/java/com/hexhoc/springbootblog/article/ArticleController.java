@@ -8,7 +8,6 @@ import com.hexhoc.springbootblog.common.util.PostResponse;
 import com.hexhoc.springbootblog.common.util.UriUtils;
 import com.hexhoc.springbootblog.config.ConfigService;
 import com.hexhoc.springbootblog.constants.Constants;
-import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
@@ -170,7 +171,7 @@ public class ArticleController {
             }
             file.transferTo(destFile);
             PostResponse resultSuccess = PostResponse.genSuccessResult();
-            resultSuccess.setData(UriUtils.getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/" + newFileName);
+            resultSuccess.setData(UriUtils.getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/img/" + newFileName);
             return resultSuccess;
         } catch (IOException e) {
             e.printStackTrace();
@@ -178,7 +179,41 @@ public class ArticleController {
         }
     }
 
-    @PostMapping("/articles/delete")
+
+    @PostMapping("/admin/articles/md/uploadfile")
+    public void uploadFileByEditormd(HttpServletRequest request,
+                                     HttpServletResponse response,
+                                     @RequestParam(name = "editormd-image-file", required = true)
+                                             MultipartFile file) throws IOException, URISyntaxException {
+        String fileName = file.getOriginalFilename();
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        //Generic method of file name
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        Random r = new Random();
+        StringBuilder tempName = new StringBuilder();
+        tempName.append(sdf.format(new Date())).append(r.nextInt(100)).append(suffixName);
+        String newFileName = tempName.toString();
+        //Create a file
+        File destFile = new File(Constants.FILE_UPLOAD_DIC + newFileName);
+        String fileUrl = UriUtils.getHost(new URI(request.getRequestURL() + "")) + "/upload/" + newFileName;
+        File fileDirectory = new File(Constants.FILE_UPLOAD_DIC);
+        try {
+            if (!fileDirectory.exists()) {
+                if (!fileDirectory.mkdir()) {
+                    throw new IOException("The folder creation failed, the path is:" + fileDirectory);
+                }
+            }
+            file.transferTo(destFile);
+            request.setCharacterEncoding("utf-8");
+            response.setHeader("Content-Type", "text/html");
+            response.getWriter().write("{\"success\": 1, \"message\":\"success\",\"url\":\"" + fileUrl + "\"}");
+        } catch (IOException e) {
+            response.getWriter().write("{\"success\":0}");
+        }
+    }
+
+
+    @PostMapping("admin/articles/delete")
     @ResponseBody
     public PostResponse delete(@RequestBody ArrayList<Long> ids) {
         if (ids.size() < 1) {

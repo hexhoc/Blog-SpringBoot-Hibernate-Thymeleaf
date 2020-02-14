@@ -295,100 +295,100 @@
             info             : "fa-info-circle"
         },        
         toolbarIconTexts     : {},
-        
-        lang : {
-            name        : "zh-cn",
-            description : "开源在线Markdown编辑器<br/>Open source online Markdown editor.",
-            tocTitle    : "目录",
-            toolbar     : {
-                undo             : "撤销（Ctrl+Z）",
-                redo             : "重做（Ctrl+Y）",
-                bold             : "粗体",
-                del              : "删除线",
-                italic           : "斜体",
-                quote            : "引用",
-                ucwords          : "将每个单词首字母转成大写",
-                uppercase        : "将所选转换成大写",
-                lowercase        : "将所选转换成小写",
-                h1               : "标题1",
-                h2               : "标题2",
-                h3               : "标题3",
-                h4               : "标题4",
-                h5               : "标题5",
-                h6               : "标题6",
-                "list-ul"        : "无序列表",
-                "list-ol"        : "有序列表",
-                hr               : "横线",
-                link             : "链接",
-                "reference-link" : "引用链接",
-                image            : "添加图片",
-                code             : "行内代码",
-                "preformatted-text" : "预格式文本 / 代码块（缩进风格）",
-                "code-block"     : "代码块（多语言风格）",
-                table            : "添加表格",
-                datetime         : "日期时间",
-                emoji            : "Emoji表情",
-                "html-entities"  : "HTML实体字符",
-                pagebreak        : "插入分页符",
-                "goto-line"      : "跳转到行",
-                watch            : "关闭实时预览",
-                unwatch          : "开启实时预览",
-                preview          : "全窗口预览HTML（按 Shift + ESC还原）",
-                fullscreen       : "全屏（按ESC还原）",
-                clear            : "清空",
-                search           : "搜索",
-                help             : "使用帮助",
-                info             : "关于" + editormd.title
+
+        lang: {
+            name: "en-US",
+            description: "Open source online Markdown editor<br/>Open source online Markdown editor.",
+            tocTitle: "Catalogue",
+            toolbar: {
+                undo: "Undo (Ctrl+Z)",
+                redo: "Redo (Ctrl+Y)",
+                bold: "Bold",
+                del: "Strikethrough",
+                italic: "Italic",
+                quote: "Quote",
+                ucwords: "Convert the first letter of each word to uppercase",
+                uppercase: "Convert selected to uppercase",
+                lowercase: "Convert selected to lowercase",
+                h1: "Title 1",
+                h2: "Title 2",
+                h3: "Title 3",
+                h4: "Title 4",
+                h5: "Title 5",
+                h6: "Title 6",
+                "list-ul": "Unordered List",
+                "list-ol": "Ordered List",
+                hr: "Horizontal Line",
+                link: "Link",
+                "reference-link": "reference link",
+                image: "Add Picture",
+                code: "inline code",
+                "preformatted-text": "Preformatted text / code block (indented style)",
+                "code-block": "Code block (multilingual style)",
+                table: "Add Table",
+                datetime: "Date Time",
+                emoji: "Emoji expression",
+                "html-entities": "HTML entity characters",
+                pagebreak: "Insert a page break",
+                "goto-line": "Go to line",
+                watch: "Turn off real-time preview",
+                unwatch: "Enable real-time preview",
+                preview: "Preview HTML in full window (press Shift + ESC to restore)",
+                fullscreen: "Full screen (press ESC to restore)",
+                clear: "Clear",
+                search: "Search",
+                help: "Use Help",
+                info: "About" + editormd.title
             },
-            buttons : {
-                enter  : "确定",
-                cancel : "取消",
-                close  : "关闭"
+            buttons: {
+                enter: "OK",
+                cancel: "Cancel",
+                close: "Close"
             },
-            dialog : {
-                link : {
-                    title    : "添加链接",
-                    url      : "链接地址",
-                    urlTitle : "链接标题",
-                    urlEmpty : "错误：请填写链接地址。"
+            dialog: {
+                link: {
+                    title: "Add link",
+                    url: "Link address",
+                    urlTitle: "Link Title",
+                    urlEmpty: "Error: Please fill in the link address."
                 },
-                referenceLink : {
-                    title    : "添加引用链接",
-                    name     : "引用名称",
-                    url      : "链接地址",
-                    urlId    : "链接ID",
-                    urlTitle : "链接标题",
-                    nameEmpty: "错误：引用链接的名称不能为空。",
-                    idEmpty  : "错误：请填写引用链接的ID。",
-                    urlEmpty : "错误：请填写引用链接的URL地址。"
+                referenceLink: {
+                    title: "Add reference link",
+                    name: "Reference name",
+                    url: "Link address",
+                    urlId: "Link ID",
+                    urlTitle: "Link Title",
+                    nameEmpty: "Error: The name of the reference link cannot be empty.",
+                    idEmpty: "Error: Please fill in the ID of the reference link.",
+                    urlEmpty: "Error: Please fill in the URL address of the reference link."
                 },
-                image : {
-                    title    : "添加图片",
-                    url      : "图片地址",
-                    link     : "图片链接",
-                    alt      : "图片描述",
-                    uploadButton     : "本地上传",
-                    imageURLEmpty    : "错误：图片地址不能为空。",
-                    uploadFileEmpty  : "错误：上传的图片不能为空。",
-                    formatNotAllowed : "错误：只允许上传图片文件，允许上传的图片文件格式有："
+                image: {
+                    title: "Add Picture",
+                    url: "path",
+                    link: "link",
+                    alt: "comment",
+                    uploadButton: "Upload",
+                    imageURLEmpty: "Error: The image URL cannot be empty.",
+                    uploadFileEmpty: "Error: The uploaded picture cannot be empty.",
+                    formatNotAllowed: "Error: Only image files are allowed to be uploaded. The allowed image file formats are:"
                 },
-                preformattedText : {
-                    title             : "添加预格式文本或代码块", 
-                    emptyAlert        : "错误：请填写预格式文本或代码的内容。"
+                preformattedText: {
+                    title: "Add preformatted text or code block",
+                    emptyAlert: "Error: Please fill in the content of the preformatted text or code."
                 },
-                codeBlock : {
-                    title             : "添加代码块",                    
-                    selectLabel       : "代码语言：",
-                    selectDefaultText : "请选择代码语言",
-                    otherLanguage     : "其他语言",
-                    unselectedLanguageAlert : "错误：请选择代码所属的语言类型。",
-                    codeEmptyAlert    : "错误：请填写代码内容。"
+                codeBlock: {
+                    title: "Add code block",
+                    selectLabel: "Code language:",
+                    selectDefaultText: "Please select the code language",
+                    otherLanguage: "Other Languages",
+                    unselectedLanguageAlert: "Error: Please select the language type of the code.",
+                    codeEmptyAlert: "Error: Please fill in the code content."
                 },
-                htmlEntities : {
-                    title : "HTML 实体字符"
+                htmlEntities: {
+                    title: "HTML entity characters"
                 },
-                help : {
-                    title : "使用帮助"
+                help: {
+                    title: "Use Help"
                 }
             }
         }
