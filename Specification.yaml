@@ -5,26 +5,17 @@ features:
     Controller:
         TagController:
             - get article by tags
-            - tags list
             - tags save
             - tags delete
     Search:
         searchController:
             - search by keyword
-    Article:
-        ArticleController:
-            - delete article
-            - upload some files
     User:
         UserController:
             - login
             - logout
             - profile
             - pre-handle redirect to login page if user is not login
-        UserEntity:
-            - Username
-            - Password
-            - locked
     ArticlesTagsRelation:
         ArticleTagsRelationEntity:
             - Article

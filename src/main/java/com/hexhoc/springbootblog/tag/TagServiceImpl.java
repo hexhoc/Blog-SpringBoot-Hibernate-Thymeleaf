@@ -1,7 +1,10 @@
 package com.hexhoc.springbootblog.tag;
 
 import com.hexhoc.springbootblog.article.Article;
+import com.hexhoc.springbootblog.common.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -40,5 +43,17 @@ public class TagServiceImpl implements TagService{
 
         return tag;
     }
+
+    @Override
+    public PageResult getTagsPage(int page, int limit) {
+        List<Tag> tagsPage = tagRepository.findAll(PageRequest.of(page, limit)).getContent();
+        int total = (int) tagRepository.count();
+        PageResult pageResult = new PageResult(tagsPage, total, limit, page);
+
+        return pageResult;
+
+
+    }
+
 
 }
