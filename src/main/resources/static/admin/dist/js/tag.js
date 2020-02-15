@@ -3,8 +3,8 @@ $(function () {
         url:'/admin/tags/list',
         datatype: "json",
         colModel: [
-            {label:'id', name:'tagId', index:'tagId', width: 50, key: true, hidden: true},
-            {label:'tag name', name:'tagName', index:'tagName', width: 240},
+            {label:'id', name:'id', index:'id', width: 50, key: true, hidden: true},
+            {label:'tag name', name:'name', index:'name', width: 240},
             {label:'Add time', name:'createTime', index:'createTime', width: 120}
         ],
         height: 560,

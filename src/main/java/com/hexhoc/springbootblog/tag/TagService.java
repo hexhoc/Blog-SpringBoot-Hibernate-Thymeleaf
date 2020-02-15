@@ -3,8 +3,8 @@ package com.hexhoc.springbootblog.tag;
 
 import com.hexhoc.springbootblog.common.util.PageResult;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public interface TagService {
 
@@ -16,4 +16,7 @@ public interface TagService {
 
     PageResult getTagsPage(int page, int limit);
 
+    Boolean saveTag(String tagName);
+
+    Boolean deleteBatch(ArrayList<Integer> ids);
 }

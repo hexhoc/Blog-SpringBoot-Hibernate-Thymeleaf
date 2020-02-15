@@ -4,11 +4,10 @@ import com.hexhoc.springbootblog.common.util.PostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Map;
 
 @Controller
@@ -39,5 +38,30 @@ public class TagController {
         return PostResponse.genSuccessResult(tagService.getTagsPage(page, limit));
     }
 
+    @PostMapping("admin/tags/save")
+    @ResponseBody
+    public PostResponse save(@RequestParam("tagName") String tagName) {
+        if (StringUtils.isEmpty(tagName)) {
+            return PostResponse.genFailResult("Parameter exception!");
+        }
+        if (tagService.saveTag(tagName)) {
+            return PostResponse.genSuccessResult();
+        } else {
+            return PostResponse.genFailResult("Duplicate tag name");
+        }
+    }
+
+    @PostMapping("admin/tags/delete")
+    @ResponseBody
+    public PostResponse delete(@RequestBody ArrayList<Integer> ids) {
+        if (ids.size() <1) {
+            return PostResponse.genFailResult("Parameter exception!");
+        }
+        if (tagService.deleteBatch(ids)) {
+            return PostResponse.genSuccessResult();
+        } else {
+            return PostResponse.genFailResult("Related data, please do not delete forcibly");
+        }
+    }
 
 }

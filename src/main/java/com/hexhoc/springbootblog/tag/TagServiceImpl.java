@@ -1,16 +1,14 @@
 package com.hexhoc.springbootblog.tag;
 
-import com.hexhoc.springbootblog.article.Article;
 import com.hexhoc.springbootblog.common.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class TagServiceImpl implements TagService{
@@ -51,8 +49,32 @@ public class TagServiceImpl implements TagService{
         PageResult pageResult = new PageResult(tagsPage, total, limit, page);
 
         return pageResult;
+    }
 
+    @Override
+    public Boolean saveTag(String tagName) {
+        // TODO: 23.07.2021 add try catch and transaction
 
+        Optional<Tag> existTag = tagRepository.findByName(tagName);
+        if (existTag.isPresent()) {
+            return false;
+        } else {
+            Tag tag = new Tag();
+            tag.setName(tagName);
+            tag.setCreateTime(LocalDateTime.now());
+            tag.setIsDeleted(false);
+            tagRepository.save(tag);
+            return true;
+        }
+
+    }
+
+    @Override
+    public Boolean deleteBatch(ArrayList<Integer> ids) {
+        // TODO: 23.07.2021 add try catch and transaction
+        List<Tag> tagsList = tagRepository.findAllById(ids);
+        tagRepository.deleteAll(tagsList);
+        return true;
     }
 
 
