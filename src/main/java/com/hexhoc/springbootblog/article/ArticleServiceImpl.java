@@ -7,6 +7,7 @@ import com.hexhoc.springbootblog.category.Category;
 import com.hexhoc.springbootblog.category.CategoryRepository;
 import com.hexhoc.springbootblog.common.util.PageResult;
 import com.hexhoc.springbootblog.tag.Tag;
+import com.hexhoc.springbootblog.tag.TagRepository;
 import com.hexhoc.springbootblog.tag.TagService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,17 @@ public class ArticleServiceImpl implements ArticleService{
 
     ArticleRepository articleRepository;
     CategoryRepository categoryRepository;
+    TagRepository tagRepository;
     TagService tagService;
 
     @Autowired
     public ArticleServiceImpl(ArticleRepository articleRepository,
                               CategoryRepository categoryRepository,
-                              TagService tagService){
+                              TagService tagService,
+                              TagRepository tagRepository){
         this.articleRepository = articleRepository;
         this.categoryRepository = categoryRepository;
+        this.tagRepository = tagRepository;
         this.tagService = tagService;
     }
 
@@ -76,6 +80,25 @@ public class ArticleServiceImpl implements ArticleService{
         if(!categoryOptional.isEmpty()) {
             Category category = categoryOptional.get();
             List<Article> articlesList = articleRepository.findByStatusAndCategory(blogStatus, category, PageRequest.of(page - 1, 8, Sort.by(Sort.Direction.ASC, "createTime")));
+            articlesListDTO = convertToArticleListDTO(articlesList);
+            total = (int) articleRepository.count();
+        }
+        return new PageResult(articlesListDTO, total, limit, page);
+    }
+
+    @Override
+    public PageResult getArticlesPageByTag(String tagName, Integer page) {
+
+        // TODO: 23.07.2021 fix duplicate code
+        int limit = 8;
+        int total = 0;
+        Boolean blogStatus = true; //Filter the data in the published state
+        Optional<Tag> tagOptional = tagRepository.findByName(tagName);
+        List<ArticleListDTO> articlesListDTO = new ArrayList<>();
+
+        if(!tagOptional.isEmpty()) {
+            Tag tag = tagOptional.get();
+            List<Article> articlesList = articleRepository.findByStatusAndTags(blogStatus, tag, PageRequest.of(page - 1, 8, Sort.by(Sort.Direction.ASC, "createTime")));
             articlesListDTO = convertToArticleListDTO(articlesList);
             total = (int) articleRepository.count();
         }

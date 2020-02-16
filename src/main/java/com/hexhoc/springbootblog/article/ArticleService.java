@@ -24,6 +24,8 @@ public interface ArticleService {
 
     PageResult getBlogsPageByCategory(String categoryName, Integer page);
 
+    PageResult getArticlesPageByTag(String tagName, Integer page);
+
     List<ArticleListDTO> convertToArticleListDTO(List<Article> articlesList);
 
     ArticleDetailDTO getArticleDetailDTOById(Long id);

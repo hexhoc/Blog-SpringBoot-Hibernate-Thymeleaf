@@ -33,7 +33,7 @@ public class ArticleController {
     private final CategoryService categoryService;
 
     @Autowired
-    public ArticleController(ArticleService articleService, ConfigService configService, CategoryService categoryService){
+    public ArticleController(ArticleService articleService, ConfigService configService, CategoryService categoryService) {
         this.articleService = articleService;
         this.configService = configService;
         this.categoryService = categoryService;
@@ -41,10 +41,11 @@ public class ArticleController {
 
     /**
      * HOME PAGE
+     *
      * @return
      */
     @GetMapping({"/", "/index", "/index.html"})
-    public String index(Model model){
+    public String index(Model model) {
         return this.page(model, 1);
     }
 
@@ -69,7 +70,7 @@ public class ArticleController {
      *
      * @return
      */
-    @GetMapping({ "/article/{articleId}"})
+    @GetMapping({"/article/{articleId}"})
     public String articleDetails(Model model, @PathVariable Long articleId, @RequestParam(value = "commentPage", required = false, defaultValue = "1") Integer commentPage) {
         ArticleDetailDTO articleDetailDTO = articleService.getArticleDetailDTOById(articleId);
         model.addAttribute("articleDetailDTO", articleDetailDTO);
@@ -80,9 +81,39 @@ public class ArticleController {
         return "blog/detail";
     }
 
+    /**
+     * Tag list page
+     *
+     * @return
+     */
+    @GetMapping({"/tag/{tagName}"})
+    public String tag(HttpServletRequest request, @PathVariable("tagName") String tagName) {
+        return tag(request, tagName, 1);
+    }
+
+    /**
+     * Tag list page
+     *
+     * @return
+     */
+    @GetMapping({"/tag/{tagName}/{page}"})
+    public String tag(HttpServletRequest request, @PathVariable("tagName") String tagName, @PathVariable("page") Integer page) {
+        PageResult blogPageResult = articleService.getArticlesPageByTag(tagName, page);
+        request.setAttribute("blogPageResult", blogPageResult);
+        request.setAttribute("pageName", "tag");
+        request.setAttribute("pageUrl", "tag");
+        request.setAttribute("keyword", tagName);
+
+        // TODO: 23.07.2021 add newArticles, hotArticles, hotTags
+
+        request.setAttribute("configurations", configService.getAllConfigs());
+        return "blog/list";
+    }
+
 
     /**
      * Get all articles by page. Only for admin users
+     *
      * @param params
      * @return
      */
@@ -178,7 +209,6 @@ public class ArticleController {
             return PostResponse.genFailResult("File upload failed");
         }
     }
-
 
     @PostMapping("/admin/articles/md/uploadfile")
     public void uploadFileByEditormd(HttpServletRequest request,

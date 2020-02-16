@@ -39,6 +39,7 @@ public class CategoryController {
         return "blog/categories";
     }
 
+    // TODO: 23.07.2021  move these endpoint to ArticleController
     /**
      * Category list page
      *

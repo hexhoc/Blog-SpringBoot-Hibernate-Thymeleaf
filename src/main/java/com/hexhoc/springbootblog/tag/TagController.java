@@ -1,5 +1,7 @@
 package com.hexhoc.springbootblog.tag;
 
+import com.hexhoc.springbootblog.article.ArticleService;
+import com.hexhoc.springbootblog.common.util.PageResult;
 import com.hexhoc.springbootblog.common.util.PostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +18,7 @@ public class TagController {
     private final TagService tagService;
 
     @Autowired
-    public TagController(TagService tagService) {
+    public TagController(TagService tagService, ArticleService articleService) {
         this.tagService = tagService;
     }
 

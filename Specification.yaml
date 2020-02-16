@@ -2,11 +2,7 @@ SPECIFICATION.
 Need to do
 NEED USER
 features:
-    Controller:
-        TagController:
-            - get article by tags
-            - tags save
-            - tags delete
+
     Search:
         searchController:
             - search by keyword

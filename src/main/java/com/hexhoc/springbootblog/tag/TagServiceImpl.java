@@ -44,7 +44,7 @@ public class TagServiceImpl implements TagService{
 
     @Override
     public PageResult getTagsPage(int page, int limit) {
-        List<Tag> tagsPage = tagRepository.findAll(PageRequest.of(page, limit)).getContent();
+        List<Tag> tagsPage = tagRepository.findAll(PageRequest.of(page-1, limit)).getContent();
         int total = (int) tagRepository.count();
         PageResult pageResult = new PageResult(tagsPage, total, limit, page);
 
