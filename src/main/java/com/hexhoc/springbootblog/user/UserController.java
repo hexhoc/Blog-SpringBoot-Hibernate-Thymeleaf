@@ -8,11 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
@@ -85,6 +83,61 @@ public class UserController {
             session.setAttribute("errorMsg", "Login failed");
             return "admin/login";
         }
+    }
+
+    @GetMapping("/profile")
+    public String profile(HttpServletRequest request) {
+        Long loginUserId = (long) request.getSession().getAttribute("loginUserId");
+        User user = userService.getUserDetailById(loginUserId);
+        if (user == null) {
+            return "admin/login";
+        }
+        request.setAttribute("path", "profile");
+        request.setAttribute("loginUserName", user.getUsername());
+        request.setAttribute("nickName", user.getNickname());
+        return "admin/profile";
+    }
+
+    @PostMapping("/profile/password")
+    @ResponseBody
+    public String passwordUpdate(HttpServletRequest request, @RequestParam("originalPassword") String originalPassword,
+                                 @RequestParam("newPassword") String newPassword) {
+        if (StringUtils.isEmpty(originalPassword) || StringUtils.isEmpty(newPassword)) {
+            return "Parameter cannot be empty";
+        }
+        Long loginUserId = (long) request.getSession().getAttribute("loginUserId");
+        if (userService.updatePassword(loginUserId, originalPassword, newPassword)) {
+            //After the modification is successful, the data in the session is cleared, and the front-end control jumps to the login page
+            request.getSession().removeAttribute("loginUserId");
+            request.getSession().removeAttribute("loginUser");
+            request.getSession().removeAttribute("errorMsg");
+            return "success";
+        } else {
+            return "Modification failed";
+        }
+    }
+
+    @PostMapping("/profile/name")
+    @ResponseBody
+    public String nameUpdate(HttpServletRequest request, @RequestParam("loginUserName") String loginUserName,
+                             @RequestParam("nickName") String nickName) {
+        if (StringUtils.isEmpty(loginUserName) || StringUtils.isEmpty(nickName)) {
+            return "Parameter cannot be empty";
+        }
+        Long loginUserId = (long) request.getSession().getAttribute("loginUserId");
+        if (userService.updateName(loginUserId, loginUserName, nickName)) {
+            return "success";
+        } else {
+            return "Modification failed";
+        }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().removeAttribute("loginUserId");
+        request.getSession().removeAttribute("loginUser");
+        request.getSession().removeAttribute("errorMsg");
+        return "admin/login";
     }
 
 

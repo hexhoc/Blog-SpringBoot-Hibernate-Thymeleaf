@@ -10,7 +10,7 @@ public interface UserService {
      * @param loginUserId
      * @return
      */
-    User getUserDetailById(Integer loginUserId);
+    User getUserDetailById(Long loginUserId);
 
     /**
      * Modify the password of the currently logged-in user
@@ -20,7 +20,7 @@ public interface UserService {
      * @param newPassword
      * @return
      */
-    Boolean updatePassword(Integer loginUserId, String originalPassword, String newPassword);
+    Boolean updatePassword(Long loginUserId, String originalPassword, String newPassword);
 
     /**
      * Modify the name information of the currently logged in user
@@ -30,5 +30,5 @@ public interface UserService {
      * @param nickName
      * @return
      */
-    Boolean updateName(Integer loginUserId, String loginUserName, String nickName);
+    Boolean updateName(Long loginUserId, String loginUserName, String nickName);
 }
