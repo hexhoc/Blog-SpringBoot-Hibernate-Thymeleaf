@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <aside th:fragment="sidebar-fragment(path)" class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a th:href="@{/admin/index}" class="brand-link">
@@ -37,7 +37,7 @@
                     <a th:href="@{/admin/articles/edit}" th:class="${path}=='edit'?'nav-link active':'nav-link'">
                         <i class="nav-icon fa fa fa-pencil-square-o"></i>
                         <p>
-                            Post a blog
+                            Post a article
                         </p>
                     </a>
                 </li>
@@ -46,7 +46,7 @@
                     <a th:href="@{/admin/articles}" th:class="${path}=='blogs'?'nav-link active':'nav-link'">
                         <i class="fa fa-list-alt nav-icon" aria-hidden="true"></i>
                         <p>
-                            Blog management
+                            Article management
                         </p>
                     </a>
                 </li>
@@ -62,7 +62,7 @@
                     <a th:href="@{/admin/categories}" th:class="${path}=='categories'?'nav-link active':'nav-link'">
                         <i class="fa fa-bookmark nav-icon" aria-hidden="true"></i>
                         <p>
-                            Classification management
+                            Category management
                         </p>
                     </a>
                 </li>
@@ -70,7 +70,7 @@
                     <a th:href="@{/admin/tags}" th:class="${path}=='tags'?'nav-link active':'nav-link'">
                         <i class="fa fa-tags nav-icon" aria-hidden="true"></i>
                         <p>
-                            Label management
+                            Tag management
                         </p>
                     </a>
                 </li>

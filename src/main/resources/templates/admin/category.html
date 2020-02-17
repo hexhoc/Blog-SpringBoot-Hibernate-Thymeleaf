@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="admin/fragments/header::header-fragment">
+</header>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- Introduce the page header header-fragment -->
+    <div th:replace="admin/fragments/header::header-nav"></div>
+    <!-- Introduce the toolbar sidebar-fragment -->
+    <div th:replace="admin/fragments/sidebar::sidebar-fragment(${path})"></div>
+    <!-- Content Wrapper. Contains icon content -->
+    <div class="content-wrapper">
+        <!-- Content Header (icon header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">Classification management</h3>
+                    </div> <!-- /.card-body -->
+                    <div class="card-body">
+                        <div class="grid-btn">
+                            <button class="btn btn-info" onclick="categoryAdd()"><i
+                                    class="fa fa-plus"></i>&nbsp;Add
+                            </button>
+                            <button class="btn btn-info" onclick="categoryEdit()"><i
+                                    class="fa fa-pencil-square-o"></i>&nbsp;Edit
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteCagegory()"><i
+                                    class="fa fa-trash-o"></i>&nbsp;Delete
+                            </button>
+                        </div>
+                        <br>
+                        <table id="jqGrid" class="table table-bordered">
+                        </table>
+                        <div id="jqGridPager"></div>
+                    </div><!-- /.card-body -->
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+        <div class="content">
+            <!-- Modal box (Modal) -->
+            <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h6 class="modal-title" id="categoryModalLabel">Modal</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form id="categoryForm">
+                                <div class="form-group">
+                                    <div class="alert alert-danger" id="edit-error-msg" style="display: none;">
+                                        Error message display column.
+                                    </div>
+                                </div>
+                                <input type="hidden" class="form-control" id="categoryId" name="categoryId">
+                                <div class="form-group">
+                                    <label for="categoryName" class="control-label">Category name:</label>
+                                    <input type="text" class="form-control" id="categoryName" name="categoryName"
+                                           placeholder="Please enter the category name" required="true">
+                                </div>
+                                <div class="form-group">
+                                    <label for="categoryIcon" class="control-label">Category icon:</label>
+                                    <select class='form-control select2 image-picker' id="categoryIcon"
+                                            name="categoryIcon">
+                                        <option data-img-src='/admin/dist/img/category/00.png' value='/admin/dist/img/category/00.png'> Default icon</option>
+                                        <option data-img-src='/admin/dist/img/category/01.png' value='/admin/dist/img/category/01.png'> icon 1</option>
+                                        <option data-img-src='/admin/dist/img/category/02.png' value='/admin/dist/img/category/02.png'> icon 2</option>
+                                        <option data-img-src='/admin/dist/img/category/03.png' value='/admin/dist/img/category/03.png'> icon 3</option>
+                                        <option data-img-src='/admin/dist/img/category/04.png' value='/admin/dist/img/category/04.png'> icon 4</option>
+                                        <option data-img-src='/admin/dist/img/category/05.png' value='/admin/dist/img/category/05.png'> icon 5</option>
+                                        <option data-img-src='/admin/dist/img/category/06.png' value='/admin/dist/img/category/06.png'> icon 6</option>
+                                        <option data-img-src='/admin/dist/img/category/07.png' value='/admin/dist/img/category/07.png'> icon 7</option>
+                                        <option data-img-src='/admin/dist/img/category/08.png' value='/admin/dist/img/category/08.png'> icon 8</option>
+                                        <option data-img-src='/admin/dist/img/category/09.png' value='/admin/dist/img/category/09.png'> icon 9</option>
+                                        <option data-img-src='/admin/dist/img/category/10.png' value='/admin/dist/img/category/10.png'> icon 10</option>
+                                        <option data-img-src='/admin/dist/img/category/11.png' value='/admin/dist/img/category/11.png'> icon 11</option>
+                                        <option data-img-src='/admin/dist/img/category/12.png' value='/admin/dist/img/category/12.png'> icon 12</option>
+                                        <option data-img-src='/admin/dist/img/category/13.png' value='/admin/dist/img/category/13.png'> icon 13</option>
+                                        <option data-img-src='/admin/dist/img/category/14.png' value='/admin/dist/img/category/14.png'> icon 14</option>
+                                        <option data-img-src='/admin/dist/img/category/15.png' value='/admin/dist/img/category/15.png'> icon 15</option>
+                                        <option data-img-src='/admin/dist/img/category/16.png' value='/admin/dist/img/category/16.png'> icon 16</option>
+                                        <option data-img-src='/admin/dist/img/category/17.png' value='/admin/dist/img/category/17.png'> icon 17</option>
+                                        <option data-img-src='/admin/dist/img/category/18.png' value='/admin/dist/img/category/18.png'> icon 18</option>
+                                        <option data-img-src='/admin/dist/img/category/19.png' value='/admin/dist/img/category/19.png'> icon 19</option>
+                                    </select>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="saveButton">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+        </div>
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- Introduce footer-fragment -->
+    <div th:replace="admin/fragments/footer::footer-fragment"></div>
+</div>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/admin/plugins/jQueryUI/jquery-ui.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
+<!-- jqgrid -->
+<script th:src="@{/admin/plugins/jqgrid-5.5.2/jquery.jqGrid.min.js}"></script>
+<script th:src="@{/admin/plugins/jqgrid-5.5.2/grid.locale-cn.js}"></script>
+<!-- image-picker -->
+<script th:src="@{/admin/plugins/image-picker/query.masonry.min.js}"></script>
+<script th:src="@{/admin/plugins/image-picker/image-picker.min.js}"></script>
+<!-- sweetalert -->
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/admin/dist/js/public.js}"></script>
+<script th:src="@{/admin/dist/js/category.js}"></script>
+</body>
+</html>

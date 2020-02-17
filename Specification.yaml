@@ -1,15 +1,11 @@
 SPECIFICATION.
 Need to do
-NEED USER
 features:
-
+    Article:
+        - fix sql error while attempt delete article
     Search:
         searchController:
             - search by keyword
-    User:
-        UserController:
-            - logout
-            - profile
     ArticlesTagsRelation:
         ArticleTagsRelationEntity:
             - Article
@@ -19,6 +15,16 @@ features:
             - Comment list
             - reply
             - delete
+    Configuration:
+        ConfigurationController
+            - CRUD
+
+    Category
+        - fix category icon
+        - fix "information reading" message on the jsGrid table
+
+    ADD README
+
 
 
 

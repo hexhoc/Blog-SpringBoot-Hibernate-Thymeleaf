@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head-fragment">
     <meta charset="utf-8">
     <title th:text="|${configurations.get('websiteName')}-${pageName}|">Homepage</title>
@@ -19,16 +19,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/" th:text="${configurations.get('websiteName')}">
-            </a>
+
+            <a class="navbar-brand" href="/admin/">Profile</a>
         </div>
         <div class="navbar-collapse" style="display: none;" id="toggle-items">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a th:href="@{/index}">Homepage</a>
+                    <a th:href="@{/index}">Home</a>
                 </li>
                 <li>
-                    <a th:href="@{/link}">Friend Link</a>
+                    <a th:href="@{/categories}">Categories</a>
                 </li>
                 <li>
                     <a th:href="@{/about}">About</a>
@@ -42,10 +42,10 @@
             <div class="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a th:href="@{/index}">Homepage</a>
+                        <a th:href="@{/index}">Home</a>
                     </li>
                     <li>
-                        <a th:href="@{/link}">Friend Link</a>
+                        <a th:href="@{/categories}">Categories</a>
                     </li>
                     <li>
                         <a th:href="@{/about}">About</a>

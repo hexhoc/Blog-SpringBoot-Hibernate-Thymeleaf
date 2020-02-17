@@ -3,9 +3,9 @@ $(function () {
         url:'/admin/categories/list',
         datatype: "json",
         colModel: [
-            {label:'id', name:'categoryId', index:'categoryId', width: 50, key: true, hidden: true},
-            {label:'category name', name:'categoryName', index:'categoryName', width: 240},
-            {label:'category icon', name:'categoryIcon', index:'categoryIcon', width: 120, formatter: imgFormatter},
+            {label:'id', name:'id', index:'id', width: 50, key: true, hidden: true},
+            {label:'category name', name:'name', index:'name', width: 240},
+            {label:'category icon', name:'icon', index:'icon', width: 120, formatter: imgFormatter},
             {label:'Add time', name:'createTime', index:'createTime', width: 120}
         ],
         height: 560,
