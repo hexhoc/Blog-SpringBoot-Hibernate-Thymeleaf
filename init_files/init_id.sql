@@ -203,6 +203,8 @@ CREATE TABLE `users`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
+# admin 123456
+insert  into `users`(`id`,`username`,`password`,`nickname`,`is_locked`) values (1,'admin','e10adc3949ba59abbe56e057f20f883e','admin',0);
 
 /*
 //////////////////////////////

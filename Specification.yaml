@@ -8,10 +8,8 @@ features:
             - search by keyword
     User:
         UserController:
-            - login
             - logout
             - profile
-            - pre-handle redirect to login page if user is not login
     ArticlesTagsRelation:
         ArticleTagsRelationEntity:
             - Article
