@@ -284,6 +284,10 @@ public class ArticleServiceImpl implements ArticleService{
 
         //// TODO: 21.07.2021 Need try catch
         List<Article> articlesList = articleRepository.findAllById(ids);
+        for(Article article : articlesList) {
+            //clear tags list, before delete, because hibernate don't wanna delete itself
+            article.setTags(new HashSet<>());
+        }
         articleRepository.deleteAll(articlesList);
 
         return true;
