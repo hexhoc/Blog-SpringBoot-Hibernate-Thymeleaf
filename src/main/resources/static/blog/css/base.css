@@ -4633,3 +4633,7 @@ aside.comments .comment header .meta {
     line-height: 18px;
     display: inline-block;
 }
+
+.card-image-cell{
+    height: 70px;
+}
