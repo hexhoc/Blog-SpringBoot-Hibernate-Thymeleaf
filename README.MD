@@ -20,3 +20,19 @@ As the structure of the project was used "Package-by-features". The choice of th
 
 ### **PREVIEW**
 
+#### Home
+
+![my-blog-info](init_files/home_page.png)
+
+#### Categories
+
+![my-blog-info](init_files/categories_page.png)
+
+#### Login
+
+![my-blog-info](init_files/login_page.png)
+
+#### Admin panel
+
+![my-blog-info](init_files/AdminLte.png)
+
